@@ -1,0 +1,36 @@
+/* Add your custom styles here */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+h1 {
+    font-size: 2em;
+}
+nav {
+    background-color: #555;
+    text-align: center;
+}
+nav a {
+    text-decoration: none;
+    color: white;
+    padding: 10px 20px;
+}
+nav a:hover {
+    background-color: #777;
+}
+main {
+    padding: 20px;
+}
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
