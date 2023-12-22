@@ -10,23 +10,29 @@
             background-color: #f4f4f4;
             margin: 0;
             padding: 0;
+            color: #333;
         }
 
         .container {
             max-width: 800px;
             margin: 30px auto;
             background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            border-radius: 10px;
         }
 
         header {
             text-align: center;
+            margin-bottom: 30px;
         }
 
         h1, h2, h3 {
             color: #3498db;
+        }
+
+        p {
+            line-height: 1.6;
         }
 
         section {
@@ -35,38 +41,52 @@
 
         .section-title {
             border-bottom: 2px solid #3498db;
-            padding-bottom: 5px;
-            margin-bottom: 20px;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
             font-size: 24px;
         }
 
         .entry {
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         .entry-title {
-            font-size: 18px;
+            font-size: 20px;
             color: #333;
             margin-bottom: 5px;
         }
 
         .entry-date {
-            font-size: 14px;
+            font-size: 16px;
             color: #777;
         }
 
+        .bio {
+            margin-bottom: 30px;
+        }
+
+        .contact-section {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .contact-item {
+            flex: 1;
+            margin-right: 20px;
+        }
+
         .skills {
-            margin-top: 20px;
+            margin-top: 30px;
         }
 
         .skill-item {
             display: inline-block;
             background-color: #3498db;
             color: #fff;
-            padding: 5px 10px;
+            padding: 8px 15px;
             margin: 5px;
-            border-radius: 3px;
-            font-size: 14px;
+            border-radius: 5px;
+            font-size: 16px;
         }
     </style>
 </head>
@@ -77,6 +97,11 @@
             <h1>Your Name</h1>
             <p>Web Developer</p>
         </header>
+
+        <div class="bio">
+            <h2>Bio</h2>
+            <p>A passionate web developer with expertise in building modern and responsive websites. Dedicated to creating efficient and user-friendly experiences. Constantly learning and exploring new technologies.</p>
+        </div>
 
         <section>
             <h2 class="section-title">Experience</h2>
@@ -97,6 +122,15 @@
             </div>
             <!-- Add more entries as needed -->
         </section>
+
+        <div class="contact-section">
+            <div class="contact-item">
+                <h2>Contact</h2>
+                <p>Email: your.email@example.com</p>
+                <p>Location: City, Country</p>
+            </div>
+            <!-- Add more contact items as needed -->
+        </div>
 
         <section class="skills">
             <h2 class="section-title">Skills</h2>
