@@ -2,46 +2,88 @@ body {
   font-family: sans-serif;
   margin: 0;
   padding: 20px;
-  color: #222;
-  background-color: #f1f1f1;
+  color: #333;
+  background-color: #f5f5f5;
 }
 
 header {
   text-align: center;
-  padding: 30px 0;
+  padding: 20px 0;
   background-color: #333;
   color: #fff;
 }
 
 .profile-image {
   border-radius: 50%;
-  overflow: hidden;
-  margin: 0 auto;
   width: 150px;
   height: 150px;
+  margin: 0 auto;
 }
 
 h1 {
-  font-size: 24px;
-  margin-bottom: 5px;
+  font-size: 2rem;
+  color: #007bff; /* Blue accent for title */
 }
 
-.bio {
-  font-size: 16px;
-  line-height: 1.5;
-}
-
-.highlight {
-  color: #333;
+h2 {
   font-weight: bold;
+  color: #333;
 }
 
-main {
-  padding: 20px;
+p {
+  line-height: 1.5;
+  color: #666;
 }
 
 section {
-  margin-bottom: 20px;
-  border-bottom: 1px solid #ddd;
-  padding: 15px;
+  margin: 20px 0;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f5f5f5;
 }
+
+section h2 {
+  color: #333;
+  border-bottom: 2px solid #007bff; /* Blue accent for section headers */
+  padding-bottom: 5px;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+.experience h3, .education h3 {
+  font-weight: bold;
+  color: #333;
+}
+
+.skills li {
+  display: inline-block;
+  margin: 5px;
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+footer {
+  text-align: center;
+  padding: 20px 0;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+a {
+  color: #007bff; /* Blue accent for links */
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* You can add additional styles for hover effects, borders, etc. */
