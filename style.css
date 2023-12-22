@@ -1,36 +1,47 @@
-/* Add your custom styles here */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+  font-family: sans-serif;
+  margin: 0;
+  padding: 20px;
+  color: #222;
+  background-color: #f1f1f1;
 }
+
 header {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 20px;
+  text-align: center;
+  padding: 30px 0;
+  background-color: #333;
+  color: #fff;
 }
+
+.profile-image {
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto;
+  width: 150px;
+  height: 150px;
+}
+
 h1 {
-    font-size: 2em;
+  font-size: 24px;
+  margin-bottom: 5px;
 }
-nav {
-    background-color: #555;
-    text-align: center;
+
+.bio {
+  font-size: 16px;
+  line-height: 1.5;
 }
-nav a {
-    text-decoration: none;
-    color: white;
-    padding: 10px 20px;
+
+.highlight {
+  color: #333;
+  font-weight: bold;
 }
-nav a:hover {
-    background-color: #777;
-}
+
 main {
-    padding: 20px;
+  padding: 20px;
 }
-footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 10px;
+
+section {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+  padding: 15px;
 }
