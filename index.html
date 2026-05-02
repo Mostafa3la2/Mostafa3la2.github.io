@@ -1,169 +1,2428 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mostafa Alaa</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            color: #333;
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#110828" />
+  <title>Mostafa Alaa — Senior iOS Engineer</title>
+  <meta name="description" content="Mostafa Alaa is a senior iOS engineer based in Cairo, building software for banks, fintech, and the people who use them." />
 
-        .container {
-            max-width: 800px;
-            margin: 30px auto;
-            background-color: #fff;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            border-radius: 10px;
-        }
+  <meta property="og:title" content="Mostafa Alaa — Senior iOS Engineer" />
+  <meta property="og:description" content="Building software for banks, fintech, and the people who use them. Cairo, Egypt." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mostafa3la2.github.io" />
 
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&family=Amiri:ital@0;1&display=swap" rel="stylesheet" />
 
-        h1, h2, h3 {
-            color: #3498db;
-        }
+  <!-- Theme detection — runs before CSS to prevent flash of incorrect theme -->
+  <script>
+    (function() {
+      try {
+        var saved = localStorage.getItem('mostafa-theme');
+        var sysLight = window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches;
+        var theme = saved || (sysLight ? 'light' : 'dark');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
 
-        p {
-            line-height: 1.6;
-        }
+  <style>
+    :root {
+      --ink:        #110828;
+      --ink-soft:   #1a1135;
+      --ink-elev:   #241945;
+      --cream:      #ebeaf2;
+      --cream-2:    #a8a6b8;
+      --mute:       #6e6c80;
+      --rule:       rgba(255, 255, 255, 0.08);
+      --accent:     #5cb8ff;
+      --accent-2:   #88ceff;
+      --accent-dim: #2585c4;
+      --aurora-1:   #5cb8ff;
+      --aurora-2:   #7c3aed;
+      --aurora-3:   #2a8fd4;
+      --aurora-4:   #a458d4;
 
-        section {
-            margin-top: 30px;
-        }
+      --glass-bg:        rgba(255, 255, 255, 0.045);
+      --glass-bg-strong: rgba(255, 255, 255, 0.07);
+      --glass-blur:      24px;
+      --glass-sat:       170%;
+      --glass-radius:    22px;
+      --glass-radius-lg: 28px;
 
-        .section-title {
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
-            margin-bottom: 30px;
-            font-size: 24px;
-        }
+      --serif:  'Instrument Serif', 'Times New Roman', serif;
+      --sans:   'Manrope', system-ui, -apple-system, sans-serif;
+      --mono:   'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+      --arabic: 'Amiri', serif;
 
-        .entry {
-            margin-bottom: 30px;
-        }
+      --gutter: clamp(1.25rem, 4vw, 3rem);
+      --max:    74rem;
+    }
 
-        .entry-title {
-            font-size: 20px;
-            color: #333;
-            margin-bottom: 5px;
-        }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 
-        .entry-date {
-            font-size: 16px;
-            color: #777;
-        }
+    /* Registered custom property for smooth shine fade (modern browsers) */
+    @property --shine {
+      syntax: '<number>';
+      inherits: false;
+      initial-value: 0;
+    }
 
-        .bio {
-            margin-bottom: 30px;
-        }
+    body {
+      margin: 0;
+      background: var(--ink);
+      color: var(--cream);
+      font-family: var(--sans);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.6;
+      letter-spacing: -0.005em;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
+    }
 
-        .contact-section {
-            display: flex;
-            justify-content: space-between;
-        }
+    ::selection { background: var(--accent); color: var(--ink); }
 
-        .contact-item {
-            flex: 1;
-            margin-right: 20px;
-        }
+    /* ============ AURORA ============ */
+    .aurora {
+      position: fixed;
+      inset: -10vmax;
+      z-index: 0;
+      pointer-events: none;
+      filter: blur(80px) saturate(120%);
+      opacity: 0.75;
+      transform: translate3d(var(--px, 0), var(--py, 0), 0);
+      transition: transform 0.7s cubic-bezier(.2,.7,.2,1);
+      will-change: transform;
+    }
+    .aurora::before, .aurora::after, .aurora .blob {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      mix-blend-mode: screen;
+    }
+    .aurora::before {
+      top: -10vmax; right: -10vmax;
+      width: 60vmax; height: 60vmax;
+      background: radial-gradient(circle, var(--aurora-1) 0%, transparent 60%);
+      animation: drift1 28s ease-in-out infinite;
+    }
+    .aurora::after {
+      bottom: -15vmax; left: -10vmax;
+      width: 70vmax; height: 70vmax;
+      background: radial-gradient(circle, var(--aurora-2) 0%, transparent 60%);
+      animation: drift2 36s ease-in-out infinite;
+    }
+    .aurora .blob.b3 {
+      top: 30vh; left: 35vw;
+      width: 40vmax; height: 40vmax;
+      background: radial-gradient(circle, var(--aurora-3) 0%, transparent 65%);
+      animation: drift3 44s ease-in-out infinite;
+      opacity: 0.55;
+    }
+    .aurora .blob.b4 {
+      bottom: 5vh; right: 15vw;
+      width: 30vmax; height: 30vmax;
+      background: radial-gradient(circle, var(--aurora-4) 0%, transparent 65%);
+      animation: drift4 32s ease-in-out infinite;
+      opacity: 0.4;
+    }
+    @keyframes drift1 { 0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(-8vmax,5vmax) scale(1.15);} }
+    @keyframes drift2 { 0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(6vmax,-8vmax) scale(0.9);} }
+    @keyframes drift3 { 0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(-12vmax,4vmax) scale(1.1);} }
+    @keyframes drift4 { 0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(8vmax,-6vmax) scale(0.95);} }
 
-        .skills {
-            margin-top: 30px;
-        }
+    .grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.04;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1   0 0 0 0 1   0 0 0 0 1   0 0 0 0.7 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    }
 
-        .skill-item {
-            display: inline-block;
-            background-color: #3498db;
-            color: #fff;
-            padding: 8px 15px;
-            margin: 5px;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-    </style>
+    /* ============ GLASS ============ */
+    .glass {
+      position: relative;
+      background: var(--glass-bg);
+      backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+      -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+      border-radius: var(--glass-radius);
+      box-shadow:
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.18),
+        inset 0 -1px 0 0 rgba(0, 0, 0, 0.22),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.04),
+        0 14px 50px rgba(0, 0, 0, 0.45),
+        0 2px 6px rgba(0, 0, 0, 0.25);
+    }
+    .glass::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg,
+        rgba(255,255,255,0.45) 0%,
+        rgba(255,255,255,0.04) 22%,
+        rgba(255,255,255,0) 50%,
+        rgba(255,255,255,0.04) 78%,
+        rgba(255,255,255,0.22) 100%);
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+              mask-composite: exclude;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .glass::after {
+      content: '';
+      position: absolute;
+      inset: 1px 1px auto 1px;
+      height: 50%;
+      border-radius: inherit;
+      background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0) 100%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .glass.lg { border-radius: var(--glass-radius-lg); }
+    .glass.strong { background: var(--glass-bg-strong); }
+
+    .filters-only { position: absolute; width: 0; height: 0; pointer-events: none; }
+
+    /* ============ LAYOUT ============ */
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 var(--gutter);
+      position: relative;
+      z-index: 2;
+    }
+    section { padding: clamp(4rem, 9vw, 8rem) 0; position: relative; }
+
+    /* ============ STATUS PILL ============ */
+    .status-pill {
+      position: fixed;
+      top: max(0.85rem, env(safe-area-inset-top));
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 80;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.55rem 1.1rem;
+      border-radius: 999px;
+      background: rgba(8,8,14,0.72);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.12),
+        0 8px 24px rgba(0,0,0,0.5),
+        0 1px 0 rgba(255,255,255,0.04);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--cream-2);
+      white-space: nowrap;
+      opacity: 0;
+      animation: rise 1s 0.4s cubic-bezier(.2,.7,.2,1) forwards;
+    }
+    .status-pill .live-dot {
+      width: 6px; height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 12px var(--accent);
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+    .status-pill .sep { color: rgba(255,255,255,0.2); }
+    .status-pill .accent { color: var(--accent); }
+    @keyframes pulse {
+      0%,100% { transform: scale(1); opacity: 1; }
+      50%     { transform: scale(1.5); opacity: 0.5; }
+    }
+
+    /* ============ NAV ============ */
+    header.top {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      padding-top: 3.5rem;
+    }
+    .nav-glass {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.65rem 1rem 0.65rem 1.25rem;
+      margin: 0 var(--gutter);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(20px) saturate(160%);
+      -webkit-backdrop-filter: blur(20px) saturate(160%);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.14),
+        inset 0 -1px 0 rgba(0,0,0,0.2),
+        inset 0 0 0 1px rgba(255,255,255,0.04),
+        0 10px 30px rgba(0,0,0,0.35);
+      max-width: var(--max);
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+    }
+    .nav-glass .brand {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--cream);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .brand .squircle {
+      width: 24px; height: 24px;
+      border-radius: 7px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-dim));
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.4),
+        0 2px 8px rgba(92, 184, 255,0.4);
+      display: grid;
+      place-items: center;
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .nav-glass nav { display: flex; gap: 1.5rem; }
+    .nav-glass nav a {
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--cream-2);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-glass nav a:hover { color: var(--accent); }
+    .nav-glass .cta {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: var(--accent);
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.3s;
+      box-shadow: 0 4px 14px rgba(92, 184, 255,0.4);
+    }
+    .nav-glass .cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(92, 184, 255,0.55);
+    }
+    @media (max-width: 720px) {
+      .nav-glass nav { display: none; }
+    }
+
+    /* ============ HERO ============ */
+    .hero { padding-top: clamp(3rem, 6vw, 5rem); padding-bottom: clamp(3rem, 6vw, 5rem); }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      align-items: end;
+    }
+    @media (min-width: 920px) {
+      .hero-grid { grid-template-columns: 1.35fr 1fr; gap: 4rem; }
+    }
+    .arabic-mark {
+      font-family: var(--arabic);
+      font-style: italic;
+      color: var(--accent);
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      line-height: 1;
+      margin: 0 0 0.5rem 0;
+      direction: rtl;
+      opacity: 0;
+      animation: rise 1.2s 0.1s cubic-bezier(.2,.7,.2,1) forwards;
+      filter: drop-shadow(0 4px 24px rgba(92, 184, 255,0.3));
+    }
+    h1.name {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(3.5rem, 13vw, 9rem);
+      line-height: 0.92;
+      letter-spacing: -0.02em;
+      margin: 0;
+      color: var(--cream);
+    }
+    h1.name .last {
+      display: block;
+      font-style: normal;
+      letter-spacing: -0.04em;
+    }
+    .tag {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--mute);
+      margin-bottom: 2rem;
+    }
+    .lede {
+      font-family: var(--serif);
+      font-size: clamp(1.4rem, 2.4vw, 1.85rem);
+      line-height: 1.35;
+      color: var(--cream-2);
+      max-width: 36ch;
+      margin: 0 0 2rem 0;
+    }
+    .lede em { color: var(--accent); font-style: italic; }
+
+    .live-widget {
+      padding: 1.25rem 1.4rem;
+      max-width: 36rem;
+    }
+    .live-widget .widget-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.85rem;
+    }
+    .live-widget .widget-tag {
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      position: relative;
+      z-index: 2;
+    }
+    .live-widget .widget-tag::before {
+      content: '';
+      width: 5px; height: 5px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent);
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+    .live-widget .widget-meta {
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mute);
+      position: relative;
+      z-index: 2;
+    }
+    .live-widget p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: var(--cream);
+      line-height: 1.55;
+      position: relative;
+      z-index: 2;
+    }
+    .live-widget strong { color: var(--accent-2); font-weight: 600; }
+
+    /* Multi-item Live Activity stack */
+    .live-widget .widget-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      position: relative;
+      z-index: 2;
+    }
+    .live-widget .widget-item + .widget-item {
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--rule);
+    }
+    .live-widget .widget-item-head {
+      display: flex;
+      align-items: baseline;
+      gap: 0.65rem;
+      margin-bottom: 0.3rem;
+      flex-wrap: wrap;
+    }
+    .live-widget .widget-status {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(92, 184, 255, 0.12);
+      flex-shrink: 0;
+    }
+    .live-widget .widget-item strong {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--cream);
+      letter-spacing: -0.01em;
+    }
+    .live-widget .widget-item p {
+      font-size: 0.88rem;
+      color: var(--cream-2);
+      line-height: 1.5;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--rule);
+    }
+    .stat .num {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      line-height: 1;
+      color: var(--cream);
+      letter-spacing: -0.02em;
+    }
+    .stat .lbl {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mute);
+      margin-top: 0.45rem;
+    }
+
+    /* ============ SECTION HEADER ============ */
+    .section-h {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 1rem;
+      align-items: baseline;
+      margin-bottom: 3rem;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cream-2);
+    }
+    .section-h .num { color: var(--accent); }
+    .section-h .line { height: 1px; background: var(--rule); align-self: center; }
+
+    /* ============ WORK STAGE — interactive phone showcase ============ */
+    .work-stage {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+    @media (min-width: 980px) {
+      .work-stage {
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 4rem;
+      }
+    }
+
+    .work-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .work-row {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 1.1rem;
+      padding: 1.25rem 1.4rem;
+      cursor: pointer;
+      position: relative;
+      align-items: start;
+      transition: transform 0.5s cubic-bezier(.2,.7,.2,1), background 0.3s;
+    }
+    .work-row:hover { transform: translateX(4px); }
+
+    .work-row .row-icon { position: relative; z-index: 2; }
+
+    .app-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1.5rem;
+      color: rgba(0,0,0,0.85);
+      font-weight: 600;
+      box-shadow:
+        inset 0 1.5px 0 rgba(255,255,255,0.5),
+        inset 0 -1px 0 rgba(0,0,0,0.15),
+        0 6px 18px rgba(0,0,0,0.3),
+        0 2px 4px rgba(0,0,0,0.2);
+      position: relative;
+      transition: transform 0.5s cubic-bezier(.34,1.56,.64,1);
+    }
+    .work-row.active .app-icon {
+      transform: scale(1.08) rotate(-3deg);
+    }
+    .app-icon.neo  { background: linear-gradient(135deg, #0e3a3f, #0b2128); color: #fff; }
+    .app-icon.tru  { background: linear-gradient(135deg, #3138c4, #1f259a); color: #fff; }
+    .app-icon.bs   { background: linear-gradient(135deg, #9457bd, #6b2d96); color: #fff; }
+    .app-icon.tk   { background: linear-gradient(135deg, #6850eb, #4030c4); color: #fff; }
+    .app-icon.past { background: linear-gradient(135deg, #5d5e72, #2e2f3d); color: var(--cream); }
+    .app-icon::after {
+      content: '';
+      position: absolute;
+      inset: 1.5px;
+      border-radius: inherit;
+      background: linear-gradient(180deg, rgba(255,255,255,0.18), transparent 50%);
+      pointer-events: none;
+      z-index: 2;
+    }
+    .app-icon img.brand {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      object-fit: cover;
+      z-index: 3;
+    }
+
+    .row-content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      min-width: 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    .row-head {
+      display: flex;
+      align-items: baseline;
+      gap: 0.7rem;
+      flex-wrap: wrap;
+    }
+
+    .row-title {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1.55rem;
+      line-height: 1;
+      color: var(--cream);
+      margin: 0;
+      letter-spacing: -0.01em;
+      transition: color 0.3s;
+    }
+    .work-row.active .row-title { color: var(--accent); }
+
+    .row-sub {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mute);
+    }
+
+    .row-body {
+      font-size: 0.88rem;
+      line-height: 1.55;
+      color: var(--cream-2);
+      margin: 0;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.5s cubic-bezier(.2,.7,.2,1), opacity 0.4s;
+    }
+    .work-row.active .row-body {
+      max-height: 220px;
+      opacity: 1;
+    }
+
+    .row-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.5s cubic-bezier(.2,.7,.2,1), opacity 0.4s;
+    }
+    .work-row.active .row-stack {
+      max-height: 60px;
+      opacity: 1;
+    }
+    .row-stack span {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--cream-2);
+      padding: 0.22rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
+    }
+
+    .row-marker {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%) scaleY(0);
+      width: 3px;
+      height: 60%;
+      background: var(--accent);
+      border-radius: 999px;
+      box-shadow: 0 0 12px var(--accent);
+      transition: transform 0.4s cubic-bezier(.2,.7,.2,1);
+      transform-origin: center;
+      z-index: 3;
+    }
+    .work-row.active .row-marker {
+      transform: translateY(-50%) scaleY(1);
+    }
+
+    /* ============ PHONE STAGE ============ */
+    .phone-stage {
+      position: sticky;
+      top: 7rem;
+      display: grid;
+      place-items: center;
+      perspective: 1200px;
+    }
+    @media (max-width: 979px) {
+      .phone-stage { display: none; }
+    }
+
+    /* ============ SHOWCASE — App Store screenshot frame ============ */
+    .showcase {
+      position: relative;
+      width: 100%;
+      max-width: 320px;
+      aspect-ratio: 9 / 19.5;
+      border-radius: 28px;
+      overflow: hidden;
+      transform: rotateY(-6deg) rotateX(2deg);
+      transition: transform 0.7s cubic-bezier(.2,.7,.2,1);
+      box-shadow:
+        0 30px 60px rgba(0,0,0,0.45),
+        0 50px 110px rgba(124, 58, 237, 0.20);
+      will-change: transform;
+    }
+    .showcase::after {
+      /* subtle inset rim — sits above images */
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.12);
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .showcase-img,
+    .showcase-panel {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transform: translateY(8px) scale(0.985);
+      transition: opacity 0.5s cubic-bezier(.2,.7,.2,1),
+                  transform 0.55s cubic-bezier(.2,.7,.2,1);
+      pointer-events: none;
+    }
+    .showcase-img.active,
+    .showcase-panel.active {
+      opacity: 1;
+      transform: none;
+      pointer-events: auto;
+    }
+
+    .showcase-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ============ EARLIER PROJECTS PANEL ============ */
+    .showcase-panel {
+      background: linear-gradient(165deg, #2a1d4a 0%, #14091e 50%, #1d1535 100%);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .past-deco {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 80% 12%, rgba(140, 109, 255, 0.30) 0%, transparent 50%),
+        radial-gradient(circle at 20% 88%, rgba(92, 184, 255, 0.18) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .past-inner {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      padding: 2.2rem 1.6rem 1.8rem;
+      height: 100%;
+      gap: 0.6rem;
+    }
+    .past-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+    }
+    .past-title {
+      font-family: var(--serif);
+      font-style: normal;
+      font-weight: 400;
+      font-size: 1.9rem;
+      line-height: 1;
+      color: #fff;
+      margin: 0;
+      letter-spacing: -0.02em;
+    }
+    .past-title em {
+      font-style: italic;
+      color: var(--accent-2);
+    }
+    .past-tagline {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 0.92rem;
+      line-height: 1.4;
+      color: rgba(255,255,255,0.72);
+      margin: 0.3rem 0 0.6rem;
+    }
+
+    .past-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .past-list li {
+      display: flex;
+      flex-direction: column;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .past-list li:last-child { border-bottom: 0; }
+    .past-name {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 0.92rem;
+      color: #fff;
+      letter-spacing: -0.01em;
+    }
+    .past-domain {
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-top: 0.15rem;
+    }
+
+    .past-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: auto;
+      padding-top: 0.8rem;
+    }
+    .past-chips span {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.72);
+      padding: 0.3rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.07);
+    }
+
+    /* Light theme — soften showcase shadow */
+    [data-theme="light"] .showcase {
+      box-shadow:
+        0 30px 60px rgba(20, 8, 60, 0.20),
+        0 50px 110px rgba(124, 58, 237, 0.14);
+    }
+
+    /* ============ MOBILE — inline showcase per row ============ */
+    .row-showcase { display: none; }
+
+    @media (max-width: 979px) {
+      /* The sticky desktop showcase column is already hidden via .phone-stage rule above */
+
+      /* Each row's inline showcase becomes visible, sized like a phone preview */
+      .row-showcase {
+        display: block;
+        grid-column: 1 / -1;
+        margin-top: 1.25rem;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 280px;
+        width: 100%;
+        aspect-ratio: 9 / 19.5;
+        border-radius: 28px;
+        overflow: hidden;
+        position: relative;
+        box-shadow:
+          0 20px 50px rgba(0,0,0,0.40),
+          0 30px 80px rgba(124, 58, 237, 0.18);
+      }
+      .row-showcase img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .row-showcase::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        box-shadow:
+          inset 0 0 0 1px rgba(255,255,255,0.08),
+          inset 0 1px 0 rgba(255,255,255,0.12);
+        pointer-events: none;
+        z-index: 5;
+      }
+
+      /* Earlier-projects panel — uses CSS-art instead of an image */
+      .row-showcase-past {
+        background: linear-gradient(165deg, #2a1d4a 0%, #14091e 50%, #1d1535 100%);
+      }
+
+      /* On mobile every row shows its full content — no hover toggle */
+      .work-row .row-body {
+        max-height: none !important;
+        opacity: 1 !important;
+      }
+      .work-row .row-stack {
+        max-height: none !important;
+        opacity: 1 !important;
+      }
+
+      /* Tame the active-state visuals on touch (no hover distinction needed) */
+      .work-row:hover { transform: none; }
+      .work-row.active .app-icon { transform: none; }
+      .work-row.active .row-title { color: var(--cream); }
+      .row-marker { display: none; }
+
+      /* Roomier row padding so the embedded showcase breathes */
+      .work-row { padding-bottom: 1.5rem; }
+    }
+    [data-theme="light"] .row-showcase {
+      box-shadow:
+        0 20px 50px rgba(20, 8, 60, 0.20),
+        0 30px 80px rgba(124, 58, 237, 0.14);
+    }
+
+
+    /* ============ BABYSTEPS · MARKETING ============ */
+    .bs-card {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 2.5rem;
+      padding: 2.5rem;
+      align-items: center;
+    }
+    @media (max-width: 720px) {
+      .bs-card {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 1.75rem;
+        text-align: center;
+      }
+    }
+    .bs-icon {
+      width: 120px;
+      height: 120px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, #9457bd, #6b2d96);
+      display: grid;
+      place-items: center;
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 4rem;
+      color: #fff;
+      font-weight: 600;
+      box-shadow:
+        inset 0 2px 0 rgba(255, 255, 255, 0.5),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.15),
+        0 14px 40px rgba(123, 63, 168, 0.45),
+        0 4px 8px rgba(0, 0, 0, 0.3);
+      position: relative;
+      z-index: 2;
+      flex-shrink: 0;
+      margin: 0 auto;
+    }
+    .bs-icon::after {
+      content: '';
+      position: absolute;
+      inset: 2px;
+      border-radius: inherit;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.28), transparent 50%);
+      pointer-events: none;
+      z-index: 2;
+    }
+    .bs-icon img.brand {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      object-fit: cover;
+      z-index: 3;
+    }
+    .bs-content { position: relative; z-index: 2; }
+    .bs-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0 0 0.5rem 0;
+    }
+    .bs-title {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--cream);
+      margin: 0 0 1rem 0;
+    }
+    .bs-title em { color: var(--accent); }
+    .bs-body {
+      font-size: 0.96rem;
+      line-height: 1.6;
+      color: var(--cream-2);
+      max-width: 50ch;
+      margin: 0 0 1.25rem 0;
+    }
+    @media (max-width: 720px) { .bs-body { margin-left: auto; margin-right: auto; } }
+    .bs-langs {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--mute);
+      margin: 0 0 1.5rem 0;
+    }
+    .bs-langs span {
+      color: var(--cream-2);
+      margin: 0 0.1rem;
+    }
+    .bs-langs span.ar {
+      font-family: var(--arabic);
+      font-style: italic;
+      text-transform: none;
+      font-size: 0.95rem;
+      vertical-align: -1px;
+      color: var(--cream);
+    }
+    .bs-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0.85rem 1.35rem;
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: linear-gradient(135deg, var(--accent-2), var(--accent));
+      border-radius: 999px;
+      text-decoration: none;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.4),
+        0 8px 24px rgba(92, 184, 255, 0.45),
+        0 2px 4px rgba(92, 184, 255, 0.3);
+      transition: transform 0.25s, box-shadow 0.3s;
+    }
+    .bs-cta:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.4),
+        0 12px 30px rgba(92, 184, 255, 0.55),
+        0 3px 6px rgba(92, 184, 255, 0.35);
+    }
+    .bs-cta-arrow { transition: transform 0.3s; display: inline-block; }
+    .bs-cta:hover .bs-cta-arrow { transform: translate(0.2rem, -0.2rem); }
+
+    /* ============ TIMELINE ============ */
+    .timeline { display: grid; gap: 0; }
+    .tl-row {
+      display: grid;
+      grid-template-columns: 9rem 1fr;
+      gap: 2rem;
+      padding: 1.75rem 0;
+      border-bottom: 1px dashed var(--rule);
+      transition: padding 0.3s, background 0.3s;
+    }
+    .tl-row:last-child { border-bottom: 0; }
+    .tl-row .when {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--mute);
+      letter-spacing: 0.06em;
+      padding-top: 0.35rem;
+    }
+    .tl-row .what h3 {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(1.25rem, 2vw, 1.6rem);
+      margin: 0 0 0.4rem 0;
+      color: var(--cream);
+    }
+    .tl-row .what .where {
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.85rem;
+    }
+    .tl-row .what p { margin: 0; color: var(--cream-2); font-size: 0.95rem; max-width: 60ch; }
+    @media (max-width: 640px) { .tl-row { grid-template-columns: 1fr; gap: 0.5rem; } }
+
+    /* ============ TOOLKIT ============ */
+    .toolkit-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    @media (min-width: 760px) { .toolkit-grid { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; } }
+    @media (min-width: 1100px) { .toolkit-grid { grid-template-columns: repeat(3, 1fr); } }
+    .tool-tile { padding: 1.25rem 1.4rem; }
+    .tool-tile h4 {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+      margin: 0 0 0.85rem 0;
+      position: relative; z-index: 2;
+    }
+    .tool-tile ul { list-style: none; padding: 0; margin: 0; position: relative; z-index: 2; }
+    .tool-tile li {
+      font-size: 0.92rem;
+      color: var(--cream-2);
+      padding: 0.18rem 0;
+      display: flex;
+      align-items: baseline;
+      gap: 0.55rem;
+    }
+    .tool-tile li::before {
+      content: '';
+      width: 4px; height: 4px;
+      background: var(--mute);
+      border-radius: 999px;
+      flex-shrink: 0;
+      transform: translateY(-3px);
+    }
+    .tool-tile li.primary { color: var(--cream); }
+    .tool-tile li.primary::before { background: var(--accent); box-shadow: 0 0 6px var(--accent); }
+
+    /* ============ OFFSCREEN ============ */
+    .off-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    @media (min-width: 760px) { .off-grid { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; } }
+    .off-card {
+      padding: 1.5rem;
+      transition: transform 0.4s cubic-bezier(.2,.7,.2,1);
+    }
+    .off-card:hover { transform: translateY(-3px); }
+    .off-card .icon {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1.5rem;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      position: relative; z-index: 2;
+    }
+    .off-card h5 {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 1.3rem;
+      margin: 0 0 0.5rem 0;
+      color: var(--cream);
+      position: relative; z-index: 2;
+    }
+    .off-card p {
+      margin: 0;
+      font-size: 0.92rem;
+      color: var(--cream-2);
+      line-height: 1.55;
+      position: relative; z-index: 2;
+    }
+
+    /* ============ CONTACT ============ */
+    .contact-block {
+      display: grid;
+      gap: 2.5rem;
+      grid-template-columns: 1fr;
+      align-items: end;
+    }
+    @media (min-width: 760px) { .contact-block { grid-template-columns: 1.4fr 1fr; gap: 4rem; } }
+    .contact-h {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      margin: 0;
+    }
+    .contact-h .swap { color: var(--accent); position: relative; display: inline-block; }
+    .contact-h .swap::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; bottom: 0.08em;
+      height: 2px; background: var(--accent-dim);
+      transform: scaleX(0); transform-origin: left;
+      animation: stroke 1.4s 0.8s ease forwards;
+    }
+    @keyframes stroke { to { transform: scaleX(1); } }
+
+    .links-card { padding: 0.6rem; }
+    .links { list-style: none; padding: 0; margin: 0; position: relative; z-index: 2; }
+    .links li { padding: 0; }
+    .links a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.95rem 1.1rem;
+      color: var(--cream);
+      text-decoration: none;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 14px;
+      transition: background 0.25s, padding-left 0.25s, color 0.25s;
+    }
+    .links a:hover {
+      background: rgba(255,255,255,0.05);
+      color: var(--accent);
+      padding-left: 1.4rem;
+    }
+    .links a .arrow { transition: transform 0.3s; opacity: 0.7; }
+    .links a:hover .arrow { transform: translate(0.25rem, -0.25rem); opacity: 1; color: var(--accent); }
+
+    /* ============ COLOPHON / SWIFT ============ */
+    .colophon { padding-top: 5rem; padding-bottom: 1rem; }
+    .swift-block {
+      padding: 1.5rem 1.75rem;
+      max-width: 50rem;
+      margin: 0 auto;
+      font-family: var(--mono);
+      font-size: 0.86rem;
+      line-height: 1.7;
+      color: var(--cream-2);
+      overflow-x: auto;
+    }
+    .swift-block .kw { color: #d4476b; }
+    .swift-block .ty { color: #2a8fd4; }
+    .swift-block .at { color: var(--accent); }
+    .swift-block .st { color: #4a8a6f; }
+    .swift-block .cm { color: var(--mute); font-style: italic; }
+    .swift-block pre { margin: 0; white-space: pre; position: relative; z-index: 2; }
+
+    footer {
+      padding: 2rem var(--gutter) 3rem;
+      max-width: var(--max);
+      margin: 0 auto;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      color: var(--mute);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      position: relative;
+      z-index: 2;
+    }
+    footer span { white-space: nowrap; }
+
+    /* ============ REVEAL ============ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 1s cubic-bezier(.2,.7,.2,1), transform 1s cubic-bezier(.2,.7,.2,1);
+    }
+    .reveal.in { opacity: 1; transform: none; }
+    .reveal.d1 { transition-delay: 0.05s; }
+    .reveal.d2 { transition-delay: 0.12s; }
+    .reveal.d3 { transition-delay: 0.20s; }
+    .reveal.d4 { transition-delay: 0.28s; }
+    .reveal.d5 { transition-delay: 0.36s; }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    /* ============ SCROLL PROGRESS HAIRLINE ============ */
+    .progress {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--accent) 60%, transparent 100%);
+      transform: scaleX(0);
+      transform-origin: left;
+      z-index: 100;
+      pointer-events: none;
+      box-shadow: 0 0 14px rgba(92, 184, 255, 0.55);
+      will-change: transform;
+    }
+
+    /* ============ CURSOR-TRACKING GLASS SHINE ============ */
+    .shine {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(
+        circle 320px at var(--mx, 50%) var(--my, 0%),
+        rgba(92, 184, 255, 0.22) 0%,
+        rgba(92, 184, 255, 0.08) 30%,
+        transparent 60%
+      );
+      opacity: 0;
+      transition: opacity 0.45s cubic-bezier(.2,.7,.2,1);
+      pointer-events: none;
+      z-index: 0;
+      mix-blend-mode: screen;
+    }
+    @media (hover: hover) {
+      .glass:hover > .shine { opacity: 1; }
+    }
+
+    /* ============ LETTER-REVEAL HERO ============ */
+    .name { perspective: 800px; }
+    .name [data-letters] { display: inline; }
+    .name [data-letters] > span {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(0.55em) rotateX(-45deg);
+      transform-origin: 50% 100%;
+      animation: letter-in 0.85s cubic-bezier(.2, .7, .2, 1) forwards;
+      animation-delay: calc(var(--i, 0) * 0.04s + 0.25s);
+      will-change: opacity, transform;
+    }
+    @keyframes letter-in {
+      to { opacity: 1; transform: translateY(0) rotateX(0); }
+    }
+
+    /* ============ APP ICON SPRING ON BABYSTEPS CARD HOVER ============ */
+    .bs-card .bs-icon {
+      transition: transform 0.55s cubic-bezier(.34, 1.56, .64, 1);
+    }
+    @media (hover: hover) {
+      .bs-card:hover .bs-icon {
+        transform: translateY(-4px) rotate(-2deg) scale(1.03);
+      }
+    }
+
+    /* ============ MAGNETIC CTA — JS-driven, smooth easing ============ */
+    .bs-cta {
+      transition: transform 0.45s cubic-bezier(.2, .7, .2, 1), box-shadow 0.3s;
+      will-change: transform;
+    }
+    /* When JS magnetic is active, JS sets transform inline; else CSS hover works as before */
+
+    /* ============ CUSTOM CURSOR ============ */
+    @media (hover: hover) and (pointer: fine) {
+      *, *::before, *::after { cursor: none !important; }
+
+      .cursor-dot, .cursor-ring {
+        position: fixed;
+        top: 0; left: 0;
+        pointer-events: none;
+        z-index: 10000;
+        border-radius: 999px;
+        will-change: transform;
+        transition: opacity 0.3s ease;
+      }
+      .cursor-dot {
+        width: 6px;
+        height: 6px;
+        background: var(--accent);
+        box-shadow: 0 0 12px rgba(92, 184, 255, 0.5);
+        transition: opacity 0.2s, background 0.3s, box-shadow 0.3s;
+      }
+      .cursor-ring {
+        width: 32px;
+        height: 32px;
+        border: 1.5px solid var(--accent);
+        opacity: 0.55;
+        transition: width 0.4s cubic-bezier(.34, 1.56, .64, 1),
+                    height 0.4s cubic-bezier(.34, 1.56, .64, 1),
+                    border-width 0.3s,
+                    opacity 0.3s,
+                    background 0.35s,
+                    border-color 0.3s;
+      }
+      body.cursor-active .cursor-dot {
+        opacity: 0;
+      }
+      body.cursor-active .cursor-ring {
+        width: 50px;
+        height: 50px;
+        border-width: 1px;
+        opacity: 0.85;
+        background: rgba(92, 184, 255, 0.10);
+      }
+      body.cursor-pressed .cursor-ring {
+        width: 28px;
+        height: 28px;
+        border-width: 2px;
+        transition: width 0.18s ease-out, height 0.18s ease-out, border-width 0.18s ease-out;
+      }
+      body.cursor-hidden .cursor-dot,
+      body.cursor-hidden .cursor-ring {
+        opacity: 0 !important;
+      }
+    }
+    /* Light theme — adjust glow + active fill */
+    [data-theme="light"] .cursor-dot {
+      box-shadow: 0 0 12px rgba(37, 133, 196, 0.4);
+    }
+    [data-theme="light"] body.cursor-active .cursor-ring {
+      background: rgba(37, 133, 196, 0.10);
+    }
+
+    /* ============ THEME TOGGLE BUTTON ============ */
+    .theme-toggle {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      border: 0;
+      background: transparent;
+      color: var(--cream-2);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      position: relative;
+      flex-shrink: 0;
+      transition: color 0.25s, background 0.25s;
+      padding: 0;
+    }
+    .theme-toggle:hover {
+      color: var(--accent);
+      background: rgba(255, 255, 255, 0.08);
+    }
+    .theme-toggle svg {
+      width: 18px;
+      height: 18px;
+      position: absolute;
+      transition: opacity 0.45s cubic-bezier(.2,.7,.2,1), transform 0.45s cubic-bezier(.2,.7,.2,1);
+    }
+    .theme-toggle .icon-sun {
+      opacity: 0;
+      transform: rotate(-90deg) scale(0.55);
+    }
+    .theme-toggle .icon-moon {
+      opacity: 1;
+      transform: rotate(0) scale(1);
+    }
+
+    /* ============ LIGHT THEME OVERRIDES ============ */
+    [data-theme="light"] {
+      --ink:        #f5f3fa;
+      --ink-soft:   #ebeaf2;
+      --ink-elev:   #e0dde9;
+      --cream:      #1a1530;
+      --cream-2:    #5a546b;
+      --mute:       #9893a4;
+      --rule:       rgba(20, 8, 60, 0.09);
+      --accent:     #2585c4;
+      --accent-2:   #5cb8ff;
+      --accent-dim: #1565a0;
+      --aurora-1:   #b9d8ff;
+      --aurora-2:   #d4c5f5;
+      --aurora-3:   #c3e1f7;
+      --aurora-4:   #e6c8ec;
+      --glass-bg:        rgba(255, 255, 255, 0.42);
+      --glass-bg-strong: rgba(255, 255, 255, 0.55);
+    }
+
+    /* Aurora — flip blend mode + soft pastel tints for light bg */
+    [data-theme="light"] .aurora {
+      opacity: 0.75;
+      filter: blur(80px) saturate(160%);
+    }
+    [data-theme="light"] .aurora::before,
+    [data-theme="light"] .aurora::after,
+    [data-theme="light"] .aurora .blob {
+      mix-blend-mode: multiply;
+    }
+
+    /* Grain — barely visible on light */
+    [data-theme="light"] .grain {
+      opacity: 0.025;
+      mix-blend-mode: multiply;
+    }
+
+    /* Glass — inverted shadows + colored specular for light bg */
+    [data-theme="light"] .glass {
+      box-shadow:
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.85),
+        inset 0 -1px 0 0 rgba(20, 8, 60, 0.06),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.35),
+        0 14px 50px rgba(20, 8, 60, 0.08),
+        0 2px 6px rgba(20, 8, 60, 0.04);
+    }
+    [data-theme="light"] .glass::before {
+      background: linear-gradient(135deg,
+        rgba(255, 255, 255, 0.95) 0%,
+        rgba(37, 133, 196, 0.06) 22%,
+        rgba(20, 8, 60, 0) 50%,
+        rgba(37, 133, 196, 0.06) 78%,
+        rgba(255, 255, 255, 0.7) 100%);
+    }
+    [data-theme="light"] .glass::after {
+      background: linear-gradient(180deg,
+        rgba(255, 255, 255, 0.55) 0%,
+        rgba(255, 255, 255, 0) 100%);
+    }
+
+    /* Shine — multiply blend, deeper accent */
+    [data-theme="light"] .shine {
+      mix-blend-mode: multiply;
+      background: radial-gradient(
+        circle 320px at var(--mx, 50%) var(--my, 0%),
+        rgba(37, 133, 196, 0.20) 0%,
+        rgba(37, 133, 196, 0.06) 30%,
+        transparent 60%
+      );
+    }
+
+    /* Status pill — light variant */
+    [data-theme="light"] .status-pill {
+      background: rgba(255, 255, 255, 0.7);
+      color: var(--cream-2);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.95),
+        0 8px 24px rgba(20, 8, 60, 0.10),
+        0 1px 0 rgba(20, 8, 60, 0.04);
+    }
+    [data-theme="light"] .status-pill .sep {
+      color: rgba(20, 8, 60, 0.25);
+    }
+
+    /* Nav glass — light variant */
+    [data-theme="light"] .nav-glass {
+      background: rgba(255, 255, 255, 0.55);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.95),
+        inset 0 -1px 0 rgba(20, 8, 60, 0.06),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.4),
+        0 10px 30px rgba(20, 8, 60, 0.10);
+    }
+
+    /* Theme toggle — light state shows sun, hover background flips */
+    [data-theme="light"] .theme-toggle:hover {
+      background: rgba(20, 8, 60, 0.06);
+    }
+    [data-theme="light"] .theme-toggle .icon-sun {
+      opacity: 1;
+      transform: rotate(0) scale(1);
+    }
+    [data-theme="light"] .theme-toggle .icon-moon {
+      opacity: 0;
+      transform: rotate(90deg) scale(0.55);
+    }
+
+    /* Stack pills inside cards — light variant */
+    [data-theme="light"] .row-stack span {
+      background: rgba(20, 8, 60, 0.04);
+      box-shadow: inset 0 0 0 1px rgba(20, 8, 60, 0.06);
+    }
+
+    /* Live Activity status pill — light variant */
+    [data-theme="light"] .live-widget .widget-status {
+      background: rgba(37, 133, 196, 0.10);
+    }
+
+    /* Toolkit list dots — slightly heavier on light */
+    [data-theme="light"] .tool-tile li::before {
+      background: var(--mute);
+      opacity: 0.7;
+    }
+
+    /* Selection — readable on either theme */
+    [data-theme="light"] ::selection {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    /* CTA button shadows on light bg */
+    [data-theme="light"] .nav-glass .cta {
+      box-shadow: 0 4px 14px rgba(37, 133, 196, 0.35);
+    }
+    [data-theme="light"] .nav-glass .cta:hover {
+      box-shadow: 0 6px 20px rgba(37, 133, 196, 0.50);
+    }
+    [data-theme="light"] .bs-cta {
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.4),
+        0 8px 24px rgba(37, 133, 196, 0.40),
+        0 2px 4px rgba(37, 133, 196, 0.25);
+    }
+
+    /* Brand squircle "M" on light — tighten shadow */
+    [data-theme="light"] .brand .squircle {
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.5),
+        0 2px 8px rgba(37, 133, 196, 0.4);
+    }
+
+    /* Earlier-projects gray icon on light — lighter values */
+    [data-theme="light"] .app-icon.past {
+      background: linear-gradient(135deg, #c8c5d3, #8e8aa0);
+      color: #fff;
+    }
+
+    /* Arabic name glow on light — tone down */
+    [data-theme="light"] .arabic-mark {
+      filter: drop-shadow(0 4px 24px rgba(37, 133, 196, 0.25));
+    }
+
+    /* Smooth cross-fade during theme toggle */
+    .theme-transitioning,
+    .theme-transitioning *,
+    .theme-transitioning *::before,
+    .theme-transitioning *::after {
+      transition:
+        background-color 0.45s ease,
+        background 0.45s ease,
+        color 0.45s ease,
+        border-color 0.45s ease,
+        box-shadow 0.45s ease,
+        fill 0.45s ease,
+        stroke 0.45s ease !important;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        transition-duration: 0.001ms !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+      .name [data-letters] > span {
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
+      }
+      .progress { transform: scaleX(0) !important; }
+      .aurora { transform: none !important; }
+    }
+  </style>
 </head>
 <body>
 
-    <div class="container">
-        <header>
-            <h1>Mostafa Alaa</h1>
-            <p>Senior iOS Developer</p>
-        </header>
+  <div class="progress" aria-hidden="true"></div>
 
-        <div class="bio">
-            <h2>Bio</h2>
-            <p>I'm a versatile software developer with more than 5 years of experience in developing native iOS apps and two years of developing cross platform apps, always learning and looking for new challenges to utilize latest technology trends.</p>
-        </div>
+  <div class="aurora" aria-hidden="true">
+    <div class="blob b3"></div>
+    <div class="blob b4"></div>
+  </div>
+  <div class="grain" aria-hidden="true"></div>
 
-        <section>
-            <h2 class="section-title">Experience</h2>
-            <div class="entry">
-                <h3 class="entry-title">Senior iOS Developer, Shahry</h3>
-                <p class="entry-date">Jan 2022- Present</p>
-                <p>My role in Shahry (an AI powered mobile credit card) as an iOS developer is to constantly improve and develop state of the art technologies to help drive the business forward, maintaining the highest level of performance and least amount of crashes to guarantee smooth user experience and customer satisfaction, improving our CICD pipeline and improve codebase scalability.</p>
-            </div>
-            <div class="entry">
-                <h3 class="entry-title">Senior Mobile Developer, Emircom</h3>
-                <p class="entry-date">Jan 2022- Present</p>
-                <p>I was responsible for building native enterprise iOS apps and cross platform apps using Flutter for different governmental portals in KSA (Ministry of Health, Public Transport Company, Saudi Water Saline Company) in different fields (HR Systems, booking systems, collection systems)</p>
-            </div>
-            <div class="entry">
-                <h3 class="entry-title">iOS Developer, Development Possibilities</h3>
-                <p class="entry-date">Jan 2022- Present</p>
-                <p>I was responsible for building native iOS applications for several clients in many industries including ride hailing, e-commerce and clinic reservations.</p>
-            </div>
-            <div class="entry">
-                <h3 class="entry-title">Game Developer, ASUGARDS</h3>
-                <p class="entry-date">Jan 2022- Present</p>
-                <p>I was responsible for building many 3D and VR applications and tours using Unity 3D, JavaScript and Unreal Engine 4 for the use of cultural heritage documentation for non-profit research group in Ain-Shams University in collaboration with many Universities as Nottingham University and Malta University.</p>
-            </div>
-            <!-- Add more entries as needed -->
-        </section>
+  <div class="status-pill" role="status" aria-live="polite">
+    <span class="live-dot"></span>
+    <span>Cairo</span>
+    <span class="sep">·</span>
+    <span class="accent" id="dynTime">—</span>
+    <span class="sep">·</span>
+    <span>Available</span>
+  </div>
 
-        <section>
-            <h2 class="section-title">Education</h2>
-            <div class="entry">
-                <h3 class="entry-title">Bachelor of Science, Computer Engineering</h3>
-                <p class="entry-date">2016</p>
-                <p>Mansoura University</p>
-            </div>
-            <!-- Add more entries as needed -->
-        </section>
-
-        <div class="contact-section">
-            <div class="contact-item">
-                <h2>Contact</h2>
-                <p>Email: mostafa.alternative@gmail.com</p>
-                <p>Location: Cairo, Egypt</p>
-                <p>Phone: +201144540411</p>
-
-            </div>
-            <!-- Add more contact items as needed -->
-        </div>
-
-        <section class="skills">
-            <h2 class="section-title">Skills</h2>
-            <div class="skill-item">iOS</div>
-            <div class="skill-item">Swift</div>
-            <div class="skill-item">SwiftUI</div>
-            <div class="skill-item">Flutter</div>
-            <div class="skill-item">Dart</div>
-            <div class="skill-item">UIKit</div>
-            <div class="skill-item">CI/CD</div>
-            <div class="skill-item">MVC, MVVM</div>
-            <div class="skill-item">Combine</div>
-            <!-- Add more skills as needed -->
-        </section>
-
+  <header class="top">
+    <div class="nav-glass">
+      <a href="#top" class="brand">
+        <span class="squircle">M</span>
+        Mostafa Alaa
+      </a>
+      <nav>
+        <a href="#work">Work</a>
+        <a href="#career">Career</a>
+        <a href="#toolkit">Toolkit</a>
+      </nav>
+      <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+        </svg>
+      </button>
+      <a href="#contact" class="cta">Get in touch</a>
     </div>
+  </header>
+
+  <main id="top">
+
+    <section class="hero wrap">
+      <div class="hero-grid">
+        <div>
+          <p class="tag reveal d1">Senior iOS Engineer · Cairo, Egypt</p>
+          <p class="arabic-mark" aria-hidden="true">مصطفى علاء</p>
+          <h1 class="name">
+            <em data-letters>Mostafa</em>
+            <span class="last" data-letters>Alaa.</span>
+          </h1>
+        </div>
+
+        <div>
+          <p class="lede reveal d3">
+            I build <em>iOS software</em> for banking, fintech,
+            ride hailing, and trip booking — from KYC flows
+            that catch fraud to apps shipping at scale.
+          </p>
+
+          <div class="live-widget glass reveal d4">
+            <div class="widget-head">
+              <span class="widget-tag">Live Activity</span>
+              <span class="widget-meta">Now</span>
+            </div>
+            <div class="widget-stack">
+              <div class="widget-item">
+                <div class="widget-item-head">
+                  <span class="widget-status">Shipping</span>
+                  <strong>BabySteps</strong>
+                </div>
+                <p>Indie iOS app I design and ship solo. Live on the App Store.</p>
+              </div>
+              <div class="widget-item">
+                <div class="widget-item-head">
+                  <span class="widget-status">Engineering</span>
+                  <strong>NEO</strong>
+                </div>
+                <p>Lifestyle digital banking for the Saudi market, built on Backbase.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats reveal d5">
+        <div class="stat">
+          <div class="num"><span data-count="8">0</span>+</div>
+          <div class="lbl">Years shipping iOS</div>
+        </div>
+        <div class="stat">
+          <div class="num"><span data-count="14">0</span>+</div>
+          <div class="lbl">Production apps</div>
+        </div>
+        <div class="stat">
+          <div class="num"><span data-count="4">0</span></div>
+          <div class="lbl">Countries served</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="work" class="wrap">
+      <div class="section-h reveal">
+        <span class="num">01</span>
+        <span class="line"></span>
+        <span>Selected Work</span>
+      </div>
+
+      <div class="work-stage">
+        <ol class="work-list" role="tablist" aria-label="Selected projects">
+
+          <li class="work-row glass active" data-project="neo" role="tab" tabindex="0" aria-selected="true">
+            <div class="row-icon"><div class="app-icon neo">N<img class="brand" src="assets/neo-icon.webp" alt="" onerror="this.remove()" /></div></div>
+            <div class="row-content">
+              <div class="row-head">
+                <h3 class="row-title">NEO</h3>
+                <span class="row-sub">Banking · 2024 →</span>
+              </div>
+              <p class="row-body">A lifestyle digital banking ecosystem for the Saudi market — full banking and multi-currency cards alongside integrated cinema, restaurant, and travel bookings.</p>
+              <div class="row-stack">
+                <span>Swift</span><span>Backbase</span><span>CocoaPods</span><span>Clean Arch</span><span>SwiftUI</span>
+              </div>
+            </div>
+            <div class="row-marker" aria-hidden="true"></div>
+            <div class="row-showcase" aria-hidden="true">
+              <img src="assets/screens/neo.webp" alt="" loading="lazy" />
+            </div>
+          </li>
+
+          <li class="work-row glass" data-project="tru" role="tab" tabindex="0" aria-selected="false">
+            <div class="row-icon"><div class="app-icon tru">T<img class="brand" src="assets/tru-icon.webp" alt="" onerror="this.remove()" /></div></div>
+            <div class="row-content">
+              <div class="row-head">
+                <h3 class="row-title">TRU</h3>
+                <span class="row-sub">Cairo · 2022 — 2024</span>
+              </div>
+              <p class="row-body">Egyptian BNPL leader. Shipped on-device fraud detection in KYC, migrated CI/CD from Bitrise to Xcode Cloud — cutting run time in half — and authored the design system the team built on.</p>
+              <div class="row-stack">
+                <span>UIKit</span><span>Xcode Cloud</span><span>BLE</span><span>ML Kit</span>
+              </div>
+            </div>
+            <div class="row-marker" aria-hidden="true"></div>
+            <div class="row-showcase" aria-hidden="true">
+              <img src="assets/screens/tru.webp" alt="" loading="lazy" />
+            </div>
+          </li>
+
+          <li class="work-row glass" data-project="bs" role="tab" tabindex="0" aria-selected="false">
+            <div class="row-icon"><div class="app-icon bs">B<img class="brand" src="assets/babysteps-icon.png" alt="" onerror="this.remove()" /></div></div>
+            <div class="row-content">
+              <div class="row-head">
+                <h3 class="row-title">BabySteps</h3>
+                <span class="row-sub">Indie · 2026 →</span>
+              </div>
+              <p class="row-body">An indie iOS app I design and ship myself, end-to-end. SwiftUI on top, SwiftData + CloudKit underneath. Featured below.</p>
+              <div class="row-stack">
+                <span>SwiftUI</span><span>SwiftData</span><span>CloudKit</span><span>SwiftTesting</span>
+              </div>
+            </div>
+            <div class="row-marker" aria-hidden="true"></div>
+            <div class="row-showcase" aria-hidden="true">
+              <img src="assets/screens/babysteps.webp" alt="" loading="lazy" />
+            </div>
+          </li>
+
+          <li class="work-row glass" data-project="tk" role="tab" tabindex="0" aria-selected="false">
+            <div class="row-icon"><div class="app-icon tk">T<img class="brand" src="assets/takhawi-icon.webp" alt="" onerror="this.remove()" /></div></div>
+            <div class="row-content">
+              <div class="row-head">
+                <h3 class="row-title">Takhawi</h3>
+                <span class="row-sub">Ride-sharing · KSA</span>
+              </div>
+              <p class="row-body">An inter-city ride-sharing app for the Saudi market — connecting drivers and passengers heading the same way and splitting the cost of the trip.</p>
+              <div class="row-stack">
+                <span>UIKit</span><span>Cocoapods</span><span>Swinject</span>
+              </div>
+            </div>
+            <div class="row-marker" aria-hidden="true"></div>
+            <div class="row-showcase" aria-hidden="true">
+              <img src="assets/screens/takhawi.webp" alt="" loading="lazy" />
+            </div>
+          </li>
+
+          <li class="work-row glass" data-project="past" role="tab" tabindex="0" aria-selected="false">
+            <div class="row-icon"><div class="app-icon past">+</div></div>
+            <div class="row-content">
+              <div class="row-head">
+                <h3 class="row-title">Earlier projects</h3>
+                <span class="row-sub">2018 — 2023</span>
+              </div>
+              <p class="row-body">PTC Self Services & Cash Collection · MGeHR for the Saudi Ministry of Health · SWCC tooling · Walto-Quran · Tadaway · Meshini · Ma'an · Kaza Shella.</p>
+              <div class="row-stack">
+                <span>UIKit</span><span>Flutter</span><span>VIPER</span>
+              </div>
+            </div>
+            <div class="row-marker" aria-hidden="true"></div>
+            <div class="row-showcase row-showcase-past" aria-hidden="true">
+              <div class="past-deco"></div>
+              <div class="past-inner">
+                <div class="past-eyebrow">Archive · 2018 — 2023</div>
+                <h3 class="past-title">Earlier <em>Projects</em></h3>
+                <p class="past-tagline">Across four markets — government, fintech, lifestyle, religion.</p>
+                <ul class="past-list">
+                  <li><span class="past-name">PTC</span><span class="past-domain">Self-services · Cash collection</span></li>
+                  <li><span class="past-name">MGeHR</span><span class="past-domain">Saudi Ministry of Health</span></li>
+                  <li><span class="past-name">SWCC</span><span class="past-domain">Utilities tooling</span></li>
+                  <li><span class="past-name">Walto-Quran</span><span class="past-domain">Religious</span></li>
+                  <li><span class="past-name">Tadaway</span><span class="past-domain">Marketplace</span></li>
+                  <li><span class="past-name">Meshini · Ma'an</span><span class="past-domain">Lifestyle · Social</span></li>
+                  <li><span class="past-name">Kaza Shella</span><span class="past-domain">E-commerce</span></li>
+                </ul>
+                <div class="past-chips">
+                  <span>KSA</span><span>Bahrain</span><span>UAE</span><span>Egypt</span>
+                </div>
+              </div>
+            </div>
+          </li>
+
+        </ol>
+
+        <div class="phone-stage" aria-hidden="true">
+          <div class="showcase">
+
+            <div class="showcase-img active" data-project="neo">
+              <img src="assets/screens/neo.png" alt="NEO banking app — App Store screenshot" loading="lazy" />
+            </div>
+
+            <div class="showcase-img" data-project="tru">
+              <img src="assets/screens/tru.png" alt="TRU app — App Store screenshot" loading="lazy" />
+            </div>
+
+            <div class="showcase-img" data-project="bs">
+              <img src="assets/screens/babysteps.png" alt="BabySteps app — App Store screenshot" loading="lazy" />
+            </div>
+
+            <div class="showcase-img" data-project="tk">
+              <img src="assets/screens/takhawe.png" alt="Takhawi ride-sharing app — App Store screenshot (Arabic)" loading="lazy" />
+            </div>
+
+            <div class="showcase-panel" data-project="past">
+              <div class="past-deco" aria-hidden="true"></div>
+              <div class="past-inner">
+                <div class="past-eyebrow">Archive · 2018 — 2023</div>
+                <h3 class="past-title">Earlier <em>Projects</em></h3>
+                <p class="past-tagline">Across four markets — government, fintech, lifestyle, religion.</p>
+
+                <ul class="past-list">
+                  <li><span class="past-name">PTC</span><span class="past-domain">Self-services · Cash collection</span></li>
+                  <li><span class="past-name">MGeHR</span><span class="past-domain">Saudi Ministry of Health</span></li>
+                  <li><span class="past-name">SWCC</span><span class="past-domain">Utilities tooling</span></li>
+                  <li><span class="past-name">Walto-Quran</span><span class="past-domain">Religious</span></li>
+                  <li><span class="past-name">Tadaway</span><span class="past-domain">Marketplace</span></li>
+                  <li><span class="past-name">Meshini · Ma'an</span><span class="past-domain">Lifestyle · Social</span></li>
+                  <li><span class="past-name">Kaza Shella</span><span class="past-domain">E-commerce</span></li>
+                </ul>
+
+                <div class="past-chips">
+                  <span>KSA</span><span>Bahrain</span><span>UAE</span><span>Egypt</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="babysteps" class="wrap">
+      <div class="section-h reveal">
+        <span class="num">02</span>
+        <span class="line"></span>
+        <span>Now Shipping</span>
+      </div>
+
+      <div class="bs-card glass reveal">
+        <div class="bs-icon">B<img class="brand" src="assets/babysteps-icon.png" alt="" onerror="this.remove()" /></div>
+        <div class="bs-content">
+          <p class="bs-eyebrow">BabySteps · v1.1</p>
+          <h2 class="bs-title">Every milestone, <em>worth remembering</em>.</h2>
+          <p class="bs-body">A native iOS app I design and ship myself — for parents who want to track, remember, and share the small moments that don't make it into the calendar. Built end-to-end: SwiftUI on the surface, SwiftData + CloudKit underneath.</p>
+          <p class="bs-langs">
+            Available worldwide in
+            <span>EN</span> ·
+            <span class="ar">عربي</span> ·
+            <span>ES</span> ·
+            <span>FR</span> ·
+            <span>DE</span>
+          </p>
+          <a href="https://apps.apple.com/app/babysteps" class="bs-cta" target="_blank" rel="noopener">
+            <span>Download on the App Store</span>
+            <span class="bs-cta-arrow">↗</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="career" class="wrap">
+      <div class="section-h reveal">
+        <span class="num">03</span>
+        <span class="line"></span>
+        <span>Career</span>
+      </div>
+
+      <div class="timeline reveal">
+        <div class="tl-row">
+          <div class="when">2024 — Now</div>
+          <div class="what">
+            <h3>Senior iOS Developer</h3>
+            <div class="where">CME · Lebanon (Remote)</div>
+            <p>Building SDKs and leading squads on NEO, a digital banking app in the Saudi market. Backbase platform work, Clean Architecture, modular Swift, helping the team adopt the Xcode 26 build system.</p>
+          </div>
+        </div>
+        <div class="tl-row">
+          <div class="when">2022 — 2024</div>
+          <div class="what">
+            <h3>Senior iOS Developer</h3>
+            <div class="where">TRU · Cairo</div>
+            <p>Owned the KYC anti-fraud pipeline using ML Kit and Bluetooth proximity. Migrated CI/CD from Bitrise to Xcode Cloud and cut run time in half. Co-Authored the in-house design system.</p>
+          </div>
+        </div>
+        <div class="tl-row">
+          <div class="when">2019 — 2023</div>
+          <div class="what">
+            <h3>Senior Mobile Developer</h3>
+            <div class="where">Emircom · KSA / UAE</div>
+            <p>Led native iOS and Flutter for governmental portals across Saudi Arabia — Public Transport Company, Ministry of Health, SWCC. Shipped from blank canvas to App Store, balancing Apple and Google guidelines.</p>
+          </div>
+        </div>
+        <div class="tl-row">
+          <div class="when">2018 — 2019</div>
+          <div class="what">
+            <h3>iOS Developer</h3>
+            <div class="where">Development Possibilities · Cairo</div>
+            <p>Native iOS work for Gulf clients — ride-hailing, e-commerce, clinic reservations.</p>
+          </div>
+        </div>
+        <div class="tl-row">
+          <div class="when">2017 — 2018</div>
+          <div class="what">
+            <h3>Game Developer</h3>
+            <div class="where">ASUGARDS · Ain Shams University</div>
+            <p>3D and VR for cultural heritage projects — Khufu Pyramid and others — alongside the University of Nottingham and the University of Malta.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="toolkit" class="wrap">
+      <div class="section-h reveal">
+        <span class="num">04</span>
+        <span class="line"></span>
+        <span>Toolkit</span>
+      </div>
+
+      <div class="toolkit-grid">
+        <div class="tool-tile glass reveal">
+          <h4>Languages</h4>
+          <ul>
+            <li class="primary">Swift</li>
+            <li class="primary">Objective-C</li>
+            <li>Dart · Python</li>
+            <li>Java · C#</li>
+          </ul>
+        </div>
+        <div class="tool-tile glass reveal d1">
+          <h4>iOS · Apple Stack</h4>
+          <ul>
+            <li class="primary">SwiftUI · UIKit</li>
+            <li class="primary">Combine · async/await</li>
+            <li>Core Data · Swift Data</li>
+            <li>Core ML · MapKit · WidgetKit</li>
+            <li>SwiftTesting</li>
+            <li>XCTest · XCUITest</li>
+          </ul>
+        </div>
+        <div class="tool-tile glass reveal d2">
+          <h4>Architecture</h4>
+          <ul>
+            <li class="primary">Clean Architecture</li>
+            <li class="primary">MVVM · Coordinator</li>
+            <li>Swinject · DI containers</li>
+            <li>SPM · CocoaPods · XCFramework</li>
+            <li>Modular monorepos</li>
+          </ul>
+        </div>
+        <div class="tool-tile glass reveal d2">
+          <h4>Tooling · CI</h4>
+          <ul>
+            <li class="primary">Xcode Cloud</li>
+            <li>Fastlane · Bitrise</li>
+            <li>GitHub Actions · GitLab CI</li>
+            <li>Proxyman · Instruments</li>
+            <li>Crashlytics</li>
+          </ul>
+        </div>
+        <div class="tool-tile glass reveal d3">
+          <h4>Cross-Platform · Backend</h4>
+          <ul>
+            <li class="primary">Flutter · Bloc · Cubit</li>
+            <li>Firebase suite</li>
+            <li>Stripe · WebSockets</li>
+          </ul>
+        </div>
+        <div class="tool-tile glass reveal d3">
+          <h4>Domain</h4>
+          <ul>
+            <li class="primary">Banking · Fintech</li>
+            <li class="primary">BNPL · KYC</li>
+            <li>Healthcare · Government</li>
+            <li>Ride-hailing · Enterprise</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <div class="section-h reveal">
+        <span class="num">05</span>
+        <span class="line"></span>
+        <span>Off-screen</span>
+      </div>
+
+      <div class="off-grid">
+        <div class="off-card glass reveal">
+          <div class="icon">i.</div>
+          <h5>Games</h5>
+          <p>Long campaigns, slow burns. The kind of titles that reward patience and reveal layered systems you only catch on the second playthrough.</p>
+        </div>
+        <div class="off-card glass reveal d1">
+          <div class="icon">ii.</div>
+          <h5>Cinema</h5>
+          <p>Weekly habit. Heavy character work or a tightly engineered popcorn flick — I'll take either, never the middle.</p>
+        </div>
+        <div class="off-card glass reveal d2">
+          <div class="icon">iii.</div>
+          <h5>Cars</h5>
+          <p>More about the engineering than the badge. Spec sheets, suspension geometry, the market. I read about cars the way some people follow sports.</p>
+        </div>
+        <div class="off-card glass reveal d2">
+          <div class="icon">iv.</div>
+          <h5>Tinkering</h5>
+          <p>Always rebuilding the desk. Monitors, keyboards, the rig under it. Keeping current with what ships isn't research — it's the hobby.</p>
+        </div>
+        <div class="off-card glass reveal d2">
+          <div class="icon">v.</div>
+          <h5>Sports</h5>
+          <p>Football, tennis, Formula 1. In it for the dominant runs and the heartbreaks — neither hits without the other.</p>
+        </div>
+        <div class="off-card glass reveal d2">
+          <div class="icon">vi.</div>
+          <h5>Reading</h5>
+          <p>Less of a bookworm than I used to be. The right book still drops me into a place I've never been — and that's enough.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="wrap">
+      <div class="contact-block">
+        <h2 class="contact-h reveal">
+          Let's <span class="swap"><em>build</em></span><br/>
+          something good.
+        </h2>
+
+        <ul class="links links-card glass reveal">
+          <li>
+            <a href="mailto:mostafa.alternative@gmail.com">
+              <span>Email</span><span class="arrow">↗</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/mostafa3la2" target="_blank" rel="noopener">
+              <span>GitHub</span><span class="arrow">↗</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/in/mostafa-alaa" target="_blank" rel="noopener">
+              <span>LinkedIn</span><span class="arrow">↗</span>
+            </a>
+          </li>
+          <li>
+            <a href="tel:+201144540411">
+              <span>+20 114 454 0411</span><span class="arrow">↗</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="colophon wrap">
+      <div class="swift-block glass reveal">
+<pre><span class="cm">// Portfolio.swift · A signature</span>
+
+<span class="kw">import</span> <span class="ty">SwiftUI</span>
+
+<span class="at">@main</span>
+<span class="kw">struct</span> <span class="ty">Mostafa</span>: <span class="ty">App</span> {
+    <span class="kw">var</span> body: <span class="kw">some</span> <span class="ty">Scene</span> {
+        <span class="ty">WindowGroup</span> {
+            <span class="ty">Portfolio</span>(based: <span class="st">"Cairo"</span>, shipping: <span class="st">"iOS"</span>)
+                .preferredColorScheme(.dark)
+                .glassEffect(.regular, in: .rect(cornerRadius: <span class="st">22</span>))
+                .accentColor(.amber)
+        }
+    }
+}</pre>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <span>© <span id="year">2026</span> Mostafa Alaa</span>
+    <span>Hand-built in Cairo · v2.0.0</span>
+    <span>Designed in Figma. Engineered in Xcode.</span>
+  </footer>
+
+  <script>
+    // ========== Cairo clock ==========
+    function tick() {
+      const now = new Date();
+      const fmt = new Intl.DateTimeFormat('en-GB', {
+        hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Africa/Cairo'
+      });
+      const t = fmt.format(now);
+      const dyn = document.getElementById('dynTime');
+      if (dyn) dyn.textContent = t;
+    }
+    tick();
+    setInterval(tick, 1000 * 30);
+
+    // ========== Year ==========
+    const y = document.getElementById('year');
+    if (y) y.textContent = new Date().getFullYear();
+
+    // ========== Reveal on scroll ==========
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      }
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // ========== Number count-up ==========
+    const countIo = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        const el = e.target;
+        const target = parseInt(el.dataset.count, 10);
+        const dur = 1100;
+        const t0 = performance.now();
+        const step = (t) => {
+          const k = Math.min(1, (t - t0) / dur);
+          const eased = 1 - Math.pow(1 - k, 3);
+          el.textContent = Math.round(target * eased);
+          if (k < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+        countIo.unobserve(el);
+      }
+    }, { threshold: 0.5 });
+    document.querySelectorAll('[data-count]').forEach(el => countIo.observe(el));
+
+    // ========== Letter splitter for hero name ==========
+    document.querySelectorAll('[data-letters]').forEach(el => {
+      const text = el.textContent;
+      el.textContent = '';
+      let i = 0;
+      for (const ch of text) {
+        const span = document.createElement('span');
+        span.textContent = ch === ' ' ? '\u00A0' : ch;
+        span.style.setProperty('--i', i++);
+        el.appendChild(span);
+      }
+    });
+
+    // ========== Scroll progress hairline ==========
+    const progress = document.querySelector('.progress');
+    if (progress) {
+      let progRaf = 0;
+      const updateProgress = () => {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+        progress.style.transform = `scaleX(${pct})`;
+      };
+      window.addEventListener('scroll', () => {
+        if (progRaf) return;
+        progRaf = requestAnimationFrame(() => {
+          updateProgress();
+          progRaf = 0;
+        });
+      }, { passive: true });
+      updateProgress();
+    }
+
+    // ========== Project switcher (work showcase) ==========
+    const workRows = document.querySelectorAll('.work-row');
+    const screens = document.querySelectorAll('.showcase-img, .showcase-panel');
+
+    function activateProject(id) {
+      workRows.forEach(r => {
+        const on = r.dataset.project === id;
+        r.classList.toggle('active', on);
+        r.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      screens.forEach(s => s.classList.toggle('active', s.dataset.project === id));
+    }
+
+    workRows.forEach(row => {
+      const id = row.dataset.project;
+      row.addEventListener('mouseenter', () => activateProject(id));
+      row.addEventListener('focus',     () => activateProject(id));
+      row.addEventListener('click',     () => activateProject(id));
+      row.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          activateProject(id);
+        }
+      });
+    });
+
+    // ========== Hover-capable enhancements ==========
+    const isHover = matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    if (isHover) {
+      // ----- Custom cursor (dot + ring) -----
+      const cursorDot = document.createElement('div');
+      cursorDot.className = 'cursor-dot';
+      cursorDot.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(cursorDot);
+
+      const cursorRing = document.createElement('div');
+      cursorRing.className = 'cursor-ring';
+      cursorRing.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(cursorRing);
+
+      let cmx = -100, cmy = -100;
+      let crx = -100, cry = -100;
+
+      function cursorLoop() {
+        crx += (cmx - crx) * 0.18;
+        cry += (cmy - cry) * 0.18;
+        cursorDot.style.transform = `translate3d(${cmx}px, ${cmy}px, 0) translate(-50%, -50%)`;
+        cursorRing.style.transform = `translate3d(${crx.toFixed(1)}px, ${cry.toFixed(1)}px, 0) translate(-50%, -50%)`;
+        requestAnimationFrame(cursorLoop);
+      }
+      cursorLoop();
+
+      window.addEventListener('mousemove', (e) => {
+        cmx = e.clientX;
+        cmy = e.clientY;
+      }, { passive: true });
+
+      const interactiveSel = 'a[href], button:not([disabled]), [role="button"], input, textarea, label, [tabindex]:not([tabindex="-1"])';
+      document.body.addEventListener('mouseover', (e) => {
+        const interactive = e.target.closest(interactiveSel);
+        document.body.classList.toggle('cursor-active', !!interactive);
+      });
+
+      document.addEventListener('mousedown', () => document.body.classList.add('cursor-pressed'));
+      document.addEventListener('mouseup',   () => document.body.classList.remove('cursor-pressed'));
+      document.addEventListener('mouseleave', () => document.body.classList.add('cursor-hidden'));
+      document.addEventListener('mouseenter', () => document.body.classList.remove('cursor-hidden'));
+
+      // ----- Aurora mouse parallax -----
+      let auroraRaf = 0, auroraTx = 0, auroraTy = 0;
+      window.addEventListener('mousemove', (e) => {
+        auroraTx = (e.clientX / window.innerWidth - 0.5) * 30;
+        auroraTy = (e.clientY / window.innerHeight - 0.5) * 30;
+        if (auroraRaf) return;
+        auroraRaf = requestAnimationFrame(() => {
+          document.documentElement.style.setProperty('--px', auroraTx.toFixed(1) + 'px');
+          document.documentElement.style.setProperty('--py', auroraTy.toFixed(1) + 'px');
+          auroraRaf = 0;
+        });
+      }, { passive: true });
+
+      // ----- Cursor-tracking shine on every glass surface -----
+      document.querySelectorAll('.glass').forEach(el => {
+        const shine = document.createElement('span');
+        shine.className = 'shine';
+        shine.setAttribute('aria-hidden', 'true');
+        // Insert at the start so it sits behind content (alongside ::before/::after)
+        el.insertBefore(shine, el.firstChild);
+
+        let shineRaf = 0;
+        el.addEventListener('mousemove', (e) => {
+          if (shineRaf) return;
+          shineRaf = requestAnimationFrame(() => {
+            const r = el.getBoundingClientRect();
+            const mx = ((e.clientX - r.left) / r.width) * 100;
+            const my = ((e.clientY - r.top) / r.height) * 100;
+            shine.style.setProperty('--mx', mx.toFixed(1) + '%');
+            shine.style.setProperty('--my', my.toFixed(1) + '%');
+            shineRaf = 0;
+          });
+        }, { passive: true });
+      });
+
+      // ----- Magnetic BabySteps CTA -----
+      const cta = document.querySelector('.bs-cta');
+      if (cta) {
+        let ctaRaf = 0;
+        cta.addEventListener('mousemove', (e) => {
+          if (ctaRaf) return;
+          ctaRaf = requestAnimationFrame(() => {
+            const r = cta.getBoundingClientRect();
+            const x = (e.clientX - r.left - r.width / 2) * 0.25;
+            const y = (e.clientY - r.top - r.height / 2) * 0.4;
+            cta.style.transform = `translate(${x.toFixed(1)}px, ${(y - 2).toFixed(1)}px)`;
+            ctaRaf = 0;
+          });
+        }, { passive: true });
+        cta.addEventListener('mouseleave', () => {
+          cta.style.transform = '';
+        });
+      }
+    }
+
+    // ========== Theme toggle ==========
+    const THEME_KEY = 'mostafa-theme';
+    const themeBtn = document.querySelector('.theme-toggle');
+    const themeMeta = document.querySelector('meta[name="theme-color"]');
+
+    function setMeta(theme) {
+      if (themeMeta) themeMeta.setAttribute('content', theme === 'light' ? '#f5f3fa' : '#110828');
+    }
+
+    // Sync meta on initial load (the inline <head> script already set the attr)
+    setMeta(document.documentElement.getAttribute('data-theme') || 'dark');
+
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const root = document.documentElement;
+        const current = root.getAttribute('data-theme') || 'dark';
+        const next = current === 'dark' ? 'light' : 'dark';
+
+        // Smooth cross-fade for ~450ms
+        root.classList.add('theme-transitioning');
+        root.setAttribute('data-theme', next);
+        setMeta(next);
+        try { localStorage.setItem(THEME_KEY, next); } catch (e) {}
+
+        setTimeout(() => root.classList.remove('theme-transitioning'), 500);
+      });
+    }
+
+    // Follow system changes only if user hasn't manually chosen
+    if (window.matchMedia) {
+      matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
+        const saved = (function() { try { return localStorage.getItem(THEME_KEY); } catch (_) { return null; } })();
+        if (saved) return; // user choice wins
+        const next = e.matches ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        setMeta(next);
+      });
+    }
+  </script>
 
 </body>
 </html>
