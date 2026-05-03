@@ -1,0 +1,210 @@
+/* ============ MOBILE WORK CAROUSEL ============ */
+/* Built by js/work-mobile.js. Shown only on coarse pointers (mobile/tablet),
+   when the body has the .mc-active class. Replaces the per-row inline
+   showcases on those devices. */
+
+.mobile-carousel { display: none; }
+
+@media (max-width: 979px) {
+  body.mc-active .mobile-carousel {
+    display: block;
+    margin-top: 1.75rem;
+    position: relative;
+  }
+
+  /* Hide the per-row inline showcases when the carousel is active — the
+     carousel becomes the canonical mobile preview. */
+  body.mc-active .row-showcase { display: none !important; }
+
+  .mc-track {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: max(1rem, calc((100vw - 86vw) / 2));
+    scroll-padding-right: max(1rem, calc((100vw - 86vw) / 2));
+    padding: 0.5rem max(1rem, calc((100vw - 86vw) / 2)) 1.25rem;
+    margin: 0 calc(-1 * var(--gutter));
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+  }
+  .mc-track::-webkit-scrollbar { display: none; }
+
+  .mc-card {
+    flex: 0 0 86vw;
+    max-width: 380px;
+    aspect-ratio: 9 / 14;
+    border-radius: 28px;
+    overflow: hidden;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+    position: relative;
+    perspective: 1400px;
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    user-select: none;
+  }
+
+  .mc-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.7s cubic-bezier(.2, .8, .2, 1);
+  }
+  .mc-card.flipped .mc-inner {
+    transform: rotateY(180deg);
+  }
+
+  .mc-face {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: inherit;
+    overflow: hidden;
+  }
+  .mc-back { transform: rotateY(180deg); }
+
+  .mc-media {
+    flex: 1 1 auto;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(165deg, #2a1d4a 0%, #14091e 50%, #1d1535 100%);
+  }
+  .mc-media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .mc-media-past { display: flex; }
+  .mc-media-past .past-inner {
+    padding: 1.6rem 1.4rem;
+  }
+
+  .mc-meta {
+    flex: 0 0 auto;
+    padding: 1rem 1.15rem 1.1rem;
+    background: linear-gradient(180deg, transparent, rgba(8, 8, 14, 0.78) 38%);
+    color: var(--cream);
+    position: relative;
+    z-index: 2;
+    margin-top: -3.25rem;
+    padding-top: 3.5rem;
+  }
+  .mc-sub {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-2);
+    margin-bottom: 0.35rem;
+  }
+  .mc-title {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.55rem;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    margin: 0 0 0.45rem 0;
+    color: #fff;
+  }
+  .mc-flip-hint {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .mc-flip-hint::before {
+    content: '';
+    width: 4px; height: 4px;
+    border-radius: 999px;
+    background: var(--accent);
+    box-shadow: 0 0 6px var(--accent);
+  }
+
+  .mc-back {
+    background: linear-gradient(165deg, rgba(20, 11, 45, 0.95), rgba(8, 4, 22, 0.92));
+    padding: 1.5rem 1.4rem;
+    color: var(--cream);
+    gap: 1rem;
+    justify-content: space-between;
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+  }
+  .mc-back .mc-body {
+    margin: 0;
+    font-size: 0.98rem;
+    line-height: 1.55;
+    color: var(--cream);
+    font-family: var(--serif);
+  }
+  .mc-back .mc-stack {
+    max-height: none !important;
+    opacity: 1 !important;
+    overflow: visible !important;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  /* Pagination dots */
+  .mc-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+  }
+  .mc-dot {
+    width: 7px; height: 7px;
+    padding: 0;
+    border-radius: 999px;
+    border: 0;
+    background: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: width 0.4s cubic-bezier(.2, .7, .2, 1),
+                background 0.3s,
+                box-shadow 0.3s;
+  }
+  .mc-dot.active {
+    width: 24px;
+    background: var(--accent);
+    box-shadow: 0 0 10px rgba(92, 184, 255, 0.5);
+  }
+  [data-theme="light"] .mc-dot { background: rgba(20, 8, 60, 0.18); }
+  [data-theme="light"] .mc-dot.active { background: var(--accent); }
+
+  /* On mobile when carousel is active, hide the work-list (the carousel is
+     the canonical browser). The list still exists in the DOM for JS sync &
+     accessibility — we just visually collapse it. */
+  body.mc-active .work-list {
+    display: none;
+  }
+  body.mc-active .work-stage { gap: 0; }
+}
+
+/* Light theme tuning */
+[data-theme="light"] .mc-meta {
+  background: linear-gradient(180deg, transparent, rgba(245, 243, 250, 0.85) 42%);
+  color: var(--cream);
+}
+[data-theme="light"] .mc-title { color: var(--cream); }
+[data-theme="light"] .mc-sub { color: var(--accent-dim); }
+[data-theme="light"] .mc-flip-hint { color: rgba(20, 8, 60, 0.5); }
+[data-theme="light"] .mc-back {
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.95), rgba(245, 243, 250, 0.92));
+  color: var(--cream);
+}
+[data-theme="light"] .mc-back .mc-body { color: var(--cream); }

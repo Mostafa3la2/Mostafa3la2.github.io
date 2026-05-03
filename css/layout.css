@@ -1,0 +1,33 @@
+.wrap {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  position: relative;
+  z-index: 2;
+}
+section { padding: clamp(4rem, 9vw, 8rem) 0; position: relative; }
+
+header.top {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding-top: 3.5rem;
+}
+
+footer {
+  padding: 2rem var(--gutter) 3rem;
+  max-width: var(--max);
+  margin: 0 auto;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--mute);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  position: relative;
+  z-index: 2;
+}
+footer span { white-space: nowrap; }

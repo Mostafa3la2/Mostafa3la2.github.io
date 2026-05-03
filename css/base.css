@@ -1,0 +1,21 @@
+*, *::before, *::after { box-sizing: border-box; }
+/* No CSS smooth scroll — Lenis owns smoothing. The CSS rule fights Lenis on
+   anchor jumps and produces jitter. */
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--cream);
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.6;
+  letter-spacing: -0.005em;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+::selection { background: var(--accent); color: var(--ink); }
