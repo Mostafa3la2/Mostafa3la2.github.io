@@ -1,21 +1,21 @@
 <script lang="ts">
 	import type { FileNode } from '$lib/files/tree';
+	import { locale } from '$lib/stores/locale';
 	import EditorTabs from './EditorTabs.svelte';
 	import JumpBar from './JumpBar.svelte';
 	import CodeBody from './CodeBody.svelte';
 
-	type Props = { file: FileNode; html: string };
+	type Props = { file: FileNode; html: { en: string; ar: string } };
 	let { file, html }: Props = $props();
 
-	// For Phase A, the tab strip just shows the active file.
-	// Phase C will track open tabs across navigation.
+	let activeHtml = $derived(html[$locale]);
 	let tabs = $derived<FileNode[]>([file]);
 </script>
 
 <section class="editor" aria-label="Editor">
 	<EditorTabs {tabs} activePath={file.path} />
 	<JumpBar path={file.path} />
-	<CodeBody {html} lang={file.lang} />
+	<CodeBody html={activeHtml} lang={file.lang} />
 </section>
 
 <style>

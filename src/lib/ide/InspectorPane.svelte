@@ -1,32 +1,30 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { findFileByPath } from '$lib/files/tree';
+	import { t } from '$lib/i18n/strings';
 
 	let activeFile = $derived(findFileByPath($page.url.pathname || '/'));
 </script>
 
 <aside class="inspector" aria-label="Inspector">
 	<header class="ins-header">
-		<button class="ins-tab active" type="button" aria-current="true">Quick Help</button>
-		<button class="ins-tab" type="button">File</button>
+		<button class="ins-tab active" type="button" aria-current="true">{$t('inspector.quick_help')}</button>
+		<button class="ins-tab" type="button">{$t('inspector.file')}</button>
 	</header>
 
 	<div class="ins-body">
 		{#if activeFile}
 			<dl class="meta">
-				<dt>Name</dt>
+				<dt>{$t('inspector.meta.name')}</dt>
 				<dd>{activeFile.name}</dd>
-				<dt>Type</dt>
+				<dt>{$t('inspector.meta.type')}</dt>
 				<dd>{activeFile.lang}</dd>
-				<dt>Path</dt>
-				<dd class="path">{activeFile.path}</dd>
+				<dt>{$t('inspector.meta.path')}</dt>
+				<dd class="path" dir="ltr">{activeFile.path}</dd>
 			</dl>
-			<p class="hint">
-				Phase B will populate this with file-aware metadata —
-				app icon for project files, project meta, App Store links.
-			</p>
+			<p class="hint">{$t('inspector.placeholder')}</p>
 		{:else}
-			<p class="hint">No file open.</p>
+			<p class="hint">{$t('inspector.no_file')}</p>
 		{/if}
 	</div>
 </aside>

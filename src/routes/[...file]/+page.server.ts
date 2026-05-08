@@ -1,6 +1,6 @@
 import { error } from '@sveltejs/kit';
 import { allFiles, findFileByPath } from '$lib/files/tree';
-import { getContent } from '$lib/files/contents';
+import { getContentBoth } from '$lib/files/contents';
 import { highlight } from '$lib/syntax/highlight.server';
 import type { PageServerLoad, EntryGenerator } from './$types';
 
@@ -16,7 +16,12 @@ export const load: PageServerLoad = async ({ url }) => {
 	const path = url.pathname || '/';
 	const file = findFileByPath(path);
 	if (!file) throw error(404, `No file at ${path}`);
-	const source = getContent(file.contentKey);
-	const html = await highlight(source, file.lang);
-	return { file, html };
+	const both = getContentBoth(file.contentKey);
+	const [htmlEn, htmlAr] = await Promise.all([
+		highlight(both.en, file.lang),
+		both.ar === both.en
+			? highlight(both.en, file.lang).then((h) => h)
+			: highlight(both.ar, file.lang)
+	]);
+	return { file, html: { en: htmlEn, ar: htmlAr } };
 };

@@ -6,6 +6,9 @@
  *
  * Console pane subscribes to `logs`. Simulator pane subscribes to `state`
  * and `currentApp`. RunButton dispatches via the action methods.
+ *
+ * Log lines store i18n keys (not pre-translated text) so the console
+ * re-localizes when the active locale flips mid-build.
  */
 
 import { writable, derived, get } from 'svelte/store';
@@ -17,7 +20,8 @@ export type AppId = 'neo' | 'tru' | 'babysteps' | 'takhawi';
 
 export interface LogLine {
 	t: string;
-	text: string;
+	key: string;
+	vars?: Record<string, string>;
 	tone?: 'plain' | 'success' | 'warn' | 'error';
 }
 
@@ -33,8 +37,8 @@ interface SimStore {
 }
 
 const initialLogs: LogLine[] = [
-	{ t: '[ready]', text: 'Mostafa.xcodeproj loaded.' },
-	{ t: '[ready]', text: 'Hit ▶ to build a project.' }
+	{ t: '[ready]', key: 'console.welcome.loaded' },
+	{ t: '[ready]', key: 'console.welcome.hint' }
 ];
 
 function timestamp(): string {
@@ -43,17 +47,21 @@ function timestamp(): string {
 	return `[${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}]`;
 }
 
-function lineFor(app: AppId, scheme: string): { delayMs: number; text: string; tone?: LogLine['tone'] }[] {
+function lineFor(
+	app: AppId,
+	scheme: string
+): { delayMs: number; key: string; vars?: Record<string, string>; tone?: LogLine['tone'] }[] {
+	const bundle = appBundleName(app);
 	return [
-		{ delayMs: 0,    text: `Building Mostafa.xcodeproj — scheme ${scheme}…` },
-		{ delayMs: 90,   text: 'Resolving package graph' },
-		{ delayMs: 220,  text: `Compile ${scheme}.swift (1 of 1)` },
-		{ delayMs: 380,  text: `Linking ${scheme}` },
-		{ delayMs: 520,  text: 'Code-sign — well, pretend code-sign' },
-		{ delayMs: 680,  text: 'Boot iPhone 15 Pro (iOS 17.4)' },
-		{ delayMs: 840,  text: `Install ${appBundleName(app)}.app` },
-		{ delayMs: 980,  text: `Launch ${appBundleName(app)}` },
-		{ delayMs: 1140, text: 'Build succeeded', tone: 'success' }
+		{ delayMs: 0,    key: 'console.building_prefix', vars: { scheme } },
+		{ delayMs: 90,   key: 'console.resolving' },
+		{ delayMs: 220,  key: 'console.compile_one', vars: { scheme } },
+		{ delayMs: 380,  key: 'console.linking', vars: { scheme } },
+		{ delayMs: 520,  key: 'console.codesign' },
+		{ delayMs: 680,  key: 'console.boot_device' },
+		{ delayMs: 840,  key: 'console.install', vars: { app: bundle } },
+		{ delayMs: 980,  key: 'console.launch', vars: { app: bundle } },
+		{ delayMs: 1140, key: 'console.success', tone: 'success' }
 	];
 }
 
@@ -91,17 +99,16 @@ function createSimulator(): SimStore {
 		const lines = lineFor(app, scheme);
 		const startedAt = Date.now();
 
-		for (const { delayMs, text, tone } of lines) {
+		for (const { delayMs, key, vars, tone } of lines) {
 			if (reduced) {
-				// no animation — just dump them with the timestamp from now
-				append({ t: timestamp(), text, tone });
+				append({ t: timestamp(), key, vars, tone });
 				continue;
 			}
 			const target = startedAt + delayMs;
 			const remaining = target - Date.now();
 			if (remaining > 0) await sleep(remaining);
 			if (token !== buildToken) return; // canceled by another click
-			append({ t: timestamp(), text, tone });
+			append({ t: timestamp(), key, vars, tone });
 		}
 
 		if (token !== buildToken) return;
@@ -118,7 +125,7 @@ function createSimulator(): SimStore {
 		buildToken++;
 		state.set('idle');
 		currentApp.set(null);
-		append({ t: timestamp(), text: 'Simulator stopped.', tone: 'plain' });
+		append({ t: timestamp(), key: 'console.stopped' });
 	}
 
 	function clearLogs() {

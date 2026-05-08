@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { tree } from '$lib/files/tree';
+	import { t } from '$lib/i18n/strings';
 	import FileTree from './FileTree.svelte';
 </script>
 
-<aside class="nav" aria-label="Project navigator">
+<aside class="nav" aria-label={$t('nav.tab.project')}>
 	<header class="nav-header">
-		<button class="nav-tab active" type="button" aria-label="Project navigator" aria-current="page">
+		<button class="nav-tab active" type="button" aria-label={$t('nav.tab.project')} aria-current="page">
 			<svg width="13" height="13" viewBox="0 0 13 13" aria-hidden="true">
 				<path
 					d="M1 3 a1 1 0 0 1 1-1 h3 l1 1 h5 a1 1 0 0 1 1 1 v6 a1 1 0 0 1 -1 1 h-9 a1 1 0 0 1 -1 -1 z"
@@ -37,8 +38,8 @@
 	<footer class="nav-filter">
 		<input
 			type="search"
-			placeholder="Filter"
-			aria-label="Filter files"
+			placeholder={$t('nav.filter_placeholder')}
+			aria-label={$t('nav.filter_placeholder')}
 		/>
 	</footer>
 </aside>
@@ -103,7 +104,7 @@
 	.caret.open {
 		transform: rotate(90deg);
 	}
-	[dir='rtl'] .caret.open {
+	:global([dir='rtl']) .caret.open {
 		transform: rotate(90deg);
 	}
 

@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { t } from '$lib/i18n/strings';
+
 	type Props = { path: string };
 	let { path }: Props = $props();
 
@@ -10,10 +12,10 @@
 </script>
 
 <nav class="jumpbar" aria-label="Path">
-	<button class="back" type="button" aria-label="Go back">
+	<button class="back" type="button" aria-label={$t('editor.jumpbar.back')}>
 		<span class="chev">‹</span>
 	</button>
-	<button class="forward" type="button" aria-label="Go forward">
+	<button class="forward" type="button" aria-label={$t('editor.jumpbar.forward')}>
 		<span class="chev">›</span>
 	</button>
 
@@ -22,7 +24,7 @@
 			<svg width="11" height="11" viewBox="0 0 11 11" aria-hidden="true">
 				<rect width="11" height="11" rx="2" fill="#5896d6" />
 			</svg>
-			<span>Mostafa</span>
+			<span>{$t('titlebar.project_name')}</span>
 		</span>
 		{#each segments as seg, i (i)}
 			<span class="sep" aria-hidden="true">›</span>
@@ -68,8 +70,10 @@
 		font-size: 14px;
 		line-height: 1;
 	}
-	[dir='rtl'] .back .chev { transform: scaleX(-1); }
-	[dir='rtl'] .forward .chev { transform: scaleX(-1); }
+	:global([dir='rtl']) .chev {
+		display: inline-block;
+		transform: scaleX(-1);
+	}
 
 	.crumbs {
 		display: flex;
@@ -98,7 +102,8 @@
 	.sep {
 		color: var(--xc-text-tertiary);
 	}
-	[dir='rtl'] .sep {
+	:global([dir='rtl']) .sep {
+		display: inline-block;
 		transform: scaleX(-1);
 	}
 </style>

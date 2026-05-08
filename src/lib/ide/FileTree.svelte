@@ -80,10 +80,10 @@
 	.caret.open {
 		transform: rotate(90deg);
 	}
-	[dir='rtl'] .caret {
+	:global([dir='rtl']) .caret {
 		transform: rotate(180deg);
 	}
-	[dir='rtl'] .caret.open {
+	:global([dir='rtl']) .caret.open {
 		transform: rotate(90deg);
 	}
 	.icon {

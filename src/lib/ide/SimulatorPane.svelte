@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { simState, simCurrentApp } from '$lib/stores/simulator';
 	import { activeDevice, schemeLabel } from '$lib/stores/scheme';
+	import { t } from '$lib/i18n/strings';
 	import Frame from '$lib/simulator/Frame.svelte';
 	import SimulatorScreenshot from '$lib/simulator/SimulatorScreenshot.svelte';
 
@@ -17,13 +18,13 @@
 		<span class="device">{$activeDevice}</span>
 		<span class="state">
 			{#if $simState === 'idle'}
-				No build running
+				{$t('sim.idle')}
 			{:else if $simState === 'compiling'}
-				Compiling…
+				{$t('sim.compiling')}
 			{:else if $simState === 'booting'}
-				Booting…
+				{$t('sim.booting')}
 			{:else if $simState === 'running' && $simCurrentApp}
-				Running · {schemeLabel[$simCurrentApp]}
+				{$t('sim.running_prefix')} {schemeLabel[$simCurrentApp]}
 			{/if}
 		</span>
 	</header>
@@ -36,7 +37,7 @@
 		>
 			{#if $simState === 'idle'}
 				<div class="centered">
-					<p class="hint">▶ Boots an app here.</p>
+					<p class="hint">{$t('sim.idle_hint')}</p>
 				</div>
 			{:else if $simState === 'compiling'}
 				<div class="centered">

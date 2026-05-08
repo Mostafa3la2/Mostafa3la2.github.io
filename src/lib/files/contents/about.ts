@@ -34,3 +34,41 @@ struct Mostafa {
     }
 }
 `;
+
+export const sourceAr = `//  AboutMe.swift
+//  Mostafa.xcodeproj — Sources/
+//
+//  النسخة المختصرة. التفصيل أدناه.
+
+import Foundation
+
+struct Mostafa {
+
+    let name      = "مصطفى علاء"
+    let role      = "مهندس iOS رئيسيّ"
+    let location  = "القاهرة، مصر"
+    let english   = "Mostafa Alaa"
+
+    let lede = """
+    أُطوّر برمجيات iOS للبنوك والتكنولوجيا الماليّة والنقل التشاركيّ
+    وحجوزات السفر — من تدفّقات KYC التي تكشف الاحتيال إلى تطبيقات
+    تخدم ملايين المستخدمين.
+    """
+
+    let years    = 8       // وزيادة، لكن من يحصي
+    let apps     = 14      // إصدار إنتاجيّ، منشور على المتجر
+    let markets  = 4       // مصر، السعوديّة، الإمارات، البحرين
+
+    /// ما أعمل عليه حاليًا، في حال تقادمت تواريخ الملفّات.
+    var currentlyShipping: [WIP] = [
+        .neo(.engineering, market: .saudiArabia),
+        .babySteps(.shipping, role: .everything),
+    ]
+
+    var availability: Availability {
+        // مفتوح للأدوار القياديّة في iOS + التعاونات المستقلّة الجادّة.
+        // عدا ذلك، منشغل بالمشاريع أعلاه.
+        .selectivelyOpen
+    }
+}
+`;
