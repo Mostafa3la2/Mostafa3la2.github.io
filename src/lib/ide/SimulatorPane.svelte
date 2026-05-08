@@ -1,6 +1,15 @@
 <script lang="ts">
 	import { simState, simCurrentApp } from '$lib/stores/simulator';
 	import { activeDevice, schemeLabel } from '$lib/stores/scheme';
+	import Frame from '$lib/simulator/Frame.svelte';
+	import NEOApp from '$lib/simulator/apps/NEOApp.svelte';
+
+	const accents: Record<string, string> = {
+		neo: '#c9a86b',
+		tru: '#a78bfa',
+		babysteps: '#f0a8c8',
+		takhawi: '#67b7a4'
+	};
 </script>
 
 <section class="sim" aria-label="Simulator" data-state={$simState}>
@@ -20,29 +29,34 @@
 	</header>
 
 	<div class="sim-body">
-		<div class="phone" aria-hidden="true">
-			<div class="phone-screen" data-state={$simState} data-app={$simCurrentApp}>
-				<div class="dynamic-island"></div>
-				{#if $simState === 'idle'}
+		<Frame
+			device={$activeDevice}
+			accent={$simCurrentApp ? accents[$simCurrentApp] : '#5896d6'}
+		>
+			{#if $simState === 'idle'}
+				<div class="centered">
 					<p class="hint">▶ Boots a live mini-app here.</p>
-				{:else if $simState === 'compiling'}
+				</div>
+			{:else if $simState === 'compiling'}
+				<div class="centered">
 					<div class="boot-spinner" aria-hidden="true"></div>
-				{:else if $simState === 'booting'}
-					<div class="boot-glow" aria-hidden="true">
-						<svg width="40" height="40" viewBox="0 0 40 40">
-							<rect x="2" y="2" width="36" height="36" rx="8" fill="none" stroke="var(--xc-text)" stroke-width="1.5" opacity="0.6"/>
-							<path d="M12 14 L20 10 L28 14 L28 26 L20 30 L12 26 Z" fill="none" stroke="var(--xc-text)" stroke-width="1" opacity="0.8"/>
-						</svg>
-					</div>
-				{:else if $simState === 'running'}
-					<div class="running-stub">
-						<p class="running-app-name">{$simCurrentApp ? schemeLabel[$simCurrentApp] : ''}</p>
-						<p class="running-hint">Mini-app screens coming up.</p>
-					</div>
-				{/if}
-				<div class="home-indicator"></div>
-			</div>
-		</div>
+				</div>
+			{:else if $simState === 'booting'}
+				<div class="centered fade-in">
+					<svg width="44" height="44" viewBox="0 0 44 44" aria-hidden="true">
+						<rect x="2" y="2" width="40" height="40" rx="9" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"/>
+						<path d="M14 16 L22 12 L30 16 L30 28 L22 32 L14 28 Z" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="1"/>
+					</svg>
+				</div>
+			{:else if $simState === 'running' && $simCurrentApp === 'neo'}
+				<NEOApp />
+			{:else if $simState === 'running'}
+				<div class="centered">
+					<p class="running-app-name">{$simCurrentApp ? schemeLabel[$simCurrentApp] : ''}</p>
+					<p class="running-hint">Mini-app for this scheme is coming next.</p>
+				</div>
+			{/if}
+		</Frame>
 	</div>
 </section>
 
@@ -70,63 +84,32 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		padding: 20px;
+		padding: 16px;
 		overflow: hidden;
 	}
-	.phone {
-		width: 200px;
-		aspect-ratio: 9 / 19.5;
-		background: #0b0b0d;
-		border-radius: 36px;
-		border: 4px solid #2a2a2f;
-		padding: 6px;
-		display: flex;
-		box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
-	}
-	.phone-screen {
+
+	.centered {
 		flex: 1;
-		background: #0a0a0c;
-		border-radius: 28px;
-		position: relative;
-		overflow: hidden;
 		display: flex;
+		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		padding: 20px;
-		transition: background var(--dur-medium) var(--ease-out);
+		gap: 6px;
+		padding: 16px;
 	}
-	.phone-screen[data-state='running'] {
-		background: #1a1a1f;
+	.fade-in {
+		animation: fade-in var(--dur-medium) var(--ease-out);
 	}
-	.dynamic-island {
-		position: absolute;
-		top: 8px;
-		left: 50%;
-		transform: translateX(-50%);
-		width: 78px;
-		height: 22px;
-		background: #000;
-		border-radius: 12px;
-		z-index: 10;
-	}
-	.home-indicator {
-		position: absolute;
-		bottom: 8px;
-		left: 50%;
-		transform: translateX(-50%);
-		width: 100px;
-		height: 4px;
-		background: rgba(255, 255, 255, 0.3);
-		border-radius: 2px;
-		z-index: 10;
+	@keyframes fade-in {
+		from { opacity: 0; transform: scale(0.96); }
+		to { opacity: 1; transform: scale(1); }
 	}
 	.hint {
 		font-size: var(--fs-ui-small);
-		color: var(--xc-text-tertiary);
+		color: rgba(255, 255, 255, 0.45);
 		text-align: center;
 		margin: 0;
 	}
-
 	.boot-spinner {
 		width: 22px;
 		height: 22px;
@@ -138,32 +121,16 @@
 	@keyframes spin {
 		to { transform: rotate(360deg); }
 	}
-
-	.boot-glow {
-		opacity: 0;
-		animation: fade-in var(--dur-medium) var(--ease-out) forwards;
-	}
-	@keyframes fade-in {
-		from { opacity: 0; transform: scale(0.96); }
-		to { opacity: 1; transform: scale(1); }
-	}
-
-	.running-stub {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 6px;
-		text-align: center;
-	}
 	.running-app-name {
 		font-size: 18px;
 		font-weight: 600;
-		color: var(--xc-text);
+		color: #fff;
 		margin: 0;
 	}
 	.running-hint {
 		font-size: var(--fs-ui-small);
-		color: var(--xc-text-tertiary);
+		color: rgba(255, 255, 255, 0.45);
 		margin: 0;
+		text-align: center;
 	}
 </style>
