@@ -3,8 +3,16 @@
 		children?: import('svelte').Snippet;
 		device?: 'iPhone 15 Pro' | 'iPhone SE' | 'iPad Pro 13"';
 		accent?: string;
+		/** When the content already has its own iOS chrome (e.g. a real screenshot),
+		 *  set bare to skip the dynamic island and home indicator overlays. */
+		bare?: boolean;
 	};
-	let { children, device = 'iPhone 15 Pro', accent = '#5896d6' }: Props = $props();
+	let {
+		children,
+		device = 'iPhone 15 Pro',
+		accent = '#5896d6',
+		bare = false
+	}: Props = $props();
 
 	// Each device has its own physical bezel/screen ratio.
 	const dims = $derived.by(() => {
@@ -25,13 +33,15 @@
 	role="presentation"
 >
 	<div class="screen">
-		{#if dims.island}
+		{#if dims.island && !bare}
 			<div class="island" aria-hidden="true"></div>
 		{/if}
 		<div class="content">
 			{#if children}{@render children()}{/if}
 		</div>
-		<div class="indicator" aria-hidden="true"></div>
+		{#if !bare}
+			<div class="indicator" aria-hidden="true"></div>
+		{/if}
 	</div>
 </div>
 

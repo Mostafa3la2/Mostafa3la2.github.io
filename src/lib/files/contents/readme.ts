@@ -7,10 +7,9 @@ export const source = `# Mostafa.xcodeproj
 This is my portfolio, opened in the tool I work in.
 
 Open a file in **Sources/** to read about a project.
-Hit ▶ on the toolbar to boot it in the simulator.
-
-The simulator is real — those are interactive components,
-not screenshots. Try scrolling, tapping, pushing into detail screens.
+Hit ▶ on the toolbar to boot it in the simulator —
+the screenshot inside the phone is from the actual shipped
+build. Scroll inside the device to see the rest of the screen.
 
 —
 

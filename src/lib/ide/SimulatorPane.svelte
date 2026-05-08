@@ -2,13 +2,13 @@
 	import { simState, simCurrentApp } from '$lib/stores/simulator';
 	import { activeDevice, schemeLabel } from '$lib/stores/scheme';
 	import Frame from '$lib/simulator/Frame.svelte';
-	import NEOApp from '$lib/simulator/apps/NEOApp.svelte';
+	import SimulatorScreenshot from '$lib/simulator/SimulatorScreenshot.svelte';
 
 	const accents: Record<string, string> = {
-		neo: '#c9a86b',
-		tru: '#a78bfa',
-		babysteps: '#f0a8c8',
-		takhawi: '#67b7a4'
+		neo: '#0bb6a8',
+		tru: '#5b3ec8',
+		babysteps: '#a78bfa',
+		takhawi: '#7d5524'
 	};
 </script>
 
@@ -32,10 +32,11 @@
 		<Frame
 			device={$activeDevice}
 			accent={$simCurrentApp ? accents[$simCurrentApp] : '#5896d6'}
+			bare={$simState === 'running'}
 		>
 			{#if $simState === 'idle'}
 				<div class="centered">
-					<p class="hint">▶ Boots a live mini-app here.</p>
+					<p class="hint">▶ Boots an app here.</p>
 				</div>
 			{:else if $simState === 'compiling'}
 				<div class="centered">
@@ -48,13 +49,8 @@
 						<path d="M14 16 L22 12 L30 16 L30 28 L22 32 L14 28 Z" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="1"/>
 					</svg>
 				</div>
-			{:else if $simState === 'running' && $simCurrentApp === 'neo'}
-				<NEOApp />
-			{:else if $simState === 'running'}
-				<div class="centered">
-					<p class="running-app-name">{$simCurrentApp ? schemeLabel[$simCurrentApp] : ''}</p>
-					<p class="running-hint">Mini-app for this scheme is coming next.</p>
-				</div>
+			{:else if $simState === 'running' && $simCurrentApp}
+				<SimulatorScreenshot app={$simCurrentApp} />
 			{/if}
 		</Frame>
 	</div>
@@ -120,17 +116,5 @@
 	}
 	@keyframes spin {
 		to { transform: rotate(360deg); }
-	}
-	.running-app-name {
-		font-size: 18px;
-		font-weight: 600;
-		color: #fff;
-		margin: 0;
-	}
-	.running-hint {
-		font-size: var(--fs-ui-small);
-		color: rgba(255, 255, 255, 0.45);
-		margin: 0;
-		text-align: center;
 	}
 </style>
