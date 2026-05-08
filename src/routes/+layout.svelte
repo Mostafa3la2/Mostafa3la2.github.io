@@ -3,7 +3,6 @@
 
 	import TitleBar from '$lib/ide/TitleBar.svelte';
 	import FileNavigator from '$lib/ide/FileNavigator.svelte';
-	import EditorPane from '$lib/ide/EditorPane.svelte';
 	import InspectorPane from '$lib/ide/InspectorPane.svelte';
 	import SimulatorPane from '$lib/ide/SimulatorPane.svelte';
 	import ConsolePane from '$lib/ide/ConsolePane.svelte';
@@ -15,15 +14,13 @@
 <div class="ide" data-xcode-version="26">
 	<TitleBar />
 	<FileNavigator />
-	<EditorPane />
+	<main class="editor-slot">
+		{@render children()}
+	</main>
 	<InspectorPane />
 	<SimulatorPane />
 	<ConsolePane />
 	<StatusBar />
-
-	{#if children}
-		<div hidden>{@render children()}</div>
-	{/if}
 </div>
 
 <style>
@@ -47,6 +44,11 @@
 		background: var(--xc-bg);
 		color: var(--xc-text);
 		overflow: hidden;
+	}
+
+	.editor-slot {
+		grid-area: editor;
+		display: contents;
 	}
 
 	@media (max-width: 1023px) {

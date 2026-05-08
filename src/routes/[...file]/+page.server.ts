@@ -1,7 +1,8 @@
 import { error } from '@sveltejs/kit';
 import { allFiles, findFileByPath } from '$lib/files/tree';
-import type { PageLoad } from './$types';
-import type { EntryGenerator } from './$types';
+import { getContent } from '$lib/files/contents';
+import { highlight } from '$lib/syntax/highlight.server';
+import type { PageServerLoad, EntryGenerator } from './$types';
 
 export const prerender = true;
 
@@ -11,9 +12,11 @@ export const entries: EntryGenerator = () => {
 		.map((f) => ({ file: f.path.replace(/^\//, '') }));
 };
 
-export const load: PageLoad = ({ url }) => {
+export const load: PageServerLoad = async ({ url }) => {
 	const path = url.pathname || '/';
 	const file = findFileByPath(path);
 	if (!file) throw error(404, `No file at ${path}`);
-	return { file };
+	const source = getContent(file.contentKey);
+	const html = await highlight(source, file.lang);
+	return { file, html };
 };

@@ -1,4 +1,11 @@
 <script lang="ts">
-	// README.md is the default file. EditorPane reads $page.url.pathname,
-	// so this page just needs to exist for the route to resolve.
+	import EditorPane from '$lib/ide/EditorPane.svelte';
+
+	let { data } = $props();
 </script>
+
+<svelte:head>
+	<title>Mostafa.xcodeproj</title>
+</svelte:head>
+
+<EditorPane file={data.file} html={data.html} />

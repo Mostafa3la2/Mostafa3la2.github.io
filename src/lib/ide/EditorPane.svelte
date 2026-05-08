@@ -1,29 +1,21 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-	import { findFileByPath, type FileNode } from '$lib/files/tree';
-	import { getContent } from '$lib/files/contents/index';
+	import type { FileNode } from '$lib/files/tree';
 	import EditorTabs from './EditorTabs.svelte';
 	import JumpBar from './JumpBar.svelte';
 	import CodeBody from './CodeBody.svelte';
 
-	let activePath = $derived($page.url.pathname || '/');
-	let activeFile = $derived(findFileByPath(activePath));
+	type Props = { file: FileNode; html: string };
+	let { file, html }: Props = $props();
 
-	// For Phase A, pin a default tab strip — Phase C wires open-tab tracking.
-	let tabs = $derived<FileNode[]>(activeFile ? [activeFile] : []);
-
-	let source = $derived(activeFile ? getContent(activeFile.contentKey) : '');
-	let lang = $derived(activeFile?.lang ?? 'swift');
+	// For Phase A, the tab strip just shows the active file.
+	// Phase C will track open tabs across navigation.
+	let tabs = $derived<FileNode[]>([file]);
 </script>
 
 <section class="editor" aria-label="Editor">
-	<EditorTabs {tabs} activePath={activePath} />
-	<JumpBar path={activePath} />
-	{#if activeFile}
-		<CodeBody {source} lang={lang} />
-	{:else}
-		<div class="empty">No file open.</div>
-	{/if}
+	<EditorTabs {tabs} activePath={file.path} />
+	<JumpBar path={file.path} />
+	<CodeBody {html} lang={file.lang} />
 </section>
 
 <style>
@@ -37,13 +29,5 @@
 			'body';
 		min-height: 0;
 		min-width: 0;
-	}
-	.empty {
-		grid-area: body;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		color: var(--xc-text-tertiary);
-		font-size: var(--fs-ui);
 	}
 </style>

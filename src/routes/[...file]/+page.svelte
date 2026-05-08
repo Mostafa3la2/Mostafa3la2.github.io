@@ -1,9 +1,11 @@
 <script lang="ts">
-	// EditorPane in the layout reads $page.url.pathname.
-	// This page just resolves the route.
+	import EditorPane from '$lib/ide/EditorPane.svelte';
+
 	let { data } = $props();
 </script>
 
 <svelte:head>
 	<title>{data.file.name} — Mostafa.xcodeproj</title>
 </svelte:head>
+
+<EditorPane file={data.file} html={data.html} />
