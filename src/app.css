@@ -1,0 +1,186 @@
+/*
+ * Mostafa.xcodeproj — design tokens
+ *
+ * Xcode 26 dark palette (Default Dark theme). Values are sampled approximations;
+ * verify against a fresh Xcode 26 install before locking pixel-fidelity tests.
+ *
+ * Logical properties used throughout (margin-inline-start vs margin-left) so
+ * the EN ⇄ AR RTL flip works without per-side rewrites.
+ */
+
+:root {
+	/* Surfaces — the chrome itself */
+	--xc-bg: #1f1f24;
+	--xc-bg-deeper: #141416;
+	--xc-bg-titlebar: #2a2a2f;
+	--xc-bg-sidebar: #1f1f24;
+	--xc-bg-editor: #1f1f24;
+	--xc-bg-editor-active-line: #2a2a35;
+	--xc-bg-inspector: #2a2a2f;
+	--xc-bg-console: #1a1a1f;
+	--xc-bg-statusbar: #2a2a2f;
+	--xc-bg-elevated: #2f2f35;
+
+	/* Borders */
+	--xc-border: #3a3a40;
+	--xc-border-subtle: #2c2c30;
+	--xc-border-strong: #48484e;
+
+	/* Text */
+	--xc-text: #ffffff;
+	--xc-text-secondary: #a1a1a6;
+	--xc-text-tertiary: #6e6e73;
+	--xc-text-disabled: #515156;
+
+	/* Selection / focus */
+	--xc-selection: rgba(81, 91, 112, 0.5);
+	--xc-focus: #4a90e2;
+	--xc-blue: #0a84ff;
+
+	/* Syntax — Default (Dark), Xcode 26 */
+	--syn-plain: #ffffff;
+	--syn-comment: #7c7c82;
+	--syn-doc-comment: #7c7c82;
+	--syn-doc-keyword: #a3a3a8;
+	--syn-string: #ff8170;
+	--syn-character: #ff8170;
+	--syn-number: #d9c97c;
+	--syn-keyword: #ff7ab2;
+	--syn-preprocessor: #ffa14f;
+	--syn-url: #6bdfff;
+	--syn-attribute: #ffa14f;
+	--syn-type-system: #6bdfff; /* "Other Type Names" */
+	--syn-type-user: #dac8ff;
+	--syn-decl-system: #67b7a4;
+	--syn-decl-user: #41a1c0;
+	--syn-class: #dac8ff;
+	--syn-function: #67b7a4;
+	--syn-constant: #67b7a4;
+
+	/* Gutter */
+	--xc-gutter-bg: #1f1f24;
+	--xc-gutter-fg: #555558;
+	--xc-gutter-active: #ffffff;
+
+	/* Accent / semantics */
+	--xc-success: #67b7a4;
+	--xc-warning: #ffa14f;
+	--xc-error: #ff7a7a;
+
+	/* Layout */
+	--xc-titlebar-height: 44px;
+	--xc-statusbar-height: 22px;
+	--xc-tab-height: 32px;
+	--xc-jumpbar-height: 28px;
+
+	--xc-sidebar-width: 240px;
+	--xc-inspector-width: 320px;
+	--xc-console-height: 180px;
+	--xc-minimap-width: 80px;
+
+	/* Type */
+	--font-mono: 'JetBrains Mono', 'SF Mono', 'Menlo', ui-monospace, monospace;
+	--font-ui:
+		-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', system-ui, sans-serif;
+	--font-arabic:
+		'IBM Plex Sans Arabic', 'Geeza Pro', 'Noto Sans Arabic', system-ui, sans-serif;
+
+	--fs-mono: 13px;
+	--fs-mono-tight: 12px;
+	--fs-ui: 13px;
+	--fs-ui-tight: 12px;
+	--fs-ui-small: 11px;
+	--lh-mono: 1.5;
+
+	/* Motion */
+	--dur-fast: 80ms;
+	--dur-medium: 180ms;
+	--dur-slow: 320ms;
+	--ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+	--ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* RESET — minimal, keeps predictable boxes */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	overscroll-behavior: none;
+	background: var(--xc-bg);
+	color: var(--xc-text);
+	font: 400 var(--fs-ui) / 1.4 var(--font-ui);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-rendering: optimizeLegibility;
+}
+
+[dir='rtl'] body {
+	font-family: var(--font-arabic);
+}
+
+#app,
+#svelte {
+	height: 100%;
+	display: contents;
+}
+
+button {
+	font: inherit;
+	color: inherit;
+	background: transparent;
+	border: 0;
+	cursor: pointer;
+	padding: 0;
+}
+
+button:focus-visible {
+	outline: 2px solid var(--xc-focus);
+	outline-offset: 2px;
+}
+
+a {
+	color: var(--xc-blue);
+	text-decoration: none;
+}
+
+::selection {
+	background: var(--xc-selection);
+}
+
+/* Scrollbars — Xcode-styled */
+::-webkit-scrollbar {
+	width: 12px;
+	height: 12px;
+}
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+::-webkit-scrollbar-thumb {
+	background: var(--xc-border);
+	border: 3px solid transparent;
+	background-clip: content-box;
+	border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+	background: var(--xc-border-strong);
+	background-clip: content-box;
+}
+
+/* Reduced motion — gate animations on this */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}

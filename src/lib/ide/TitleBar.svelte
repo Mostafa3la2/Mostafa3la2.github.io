@@ -1,0 +1,99 @@
+<script lang="ts">
+	import TrafficLights from './TrafficLights.svelte';
+	import SchemePicker from './SchemePicker.svelte';
+	import RunButton from './RunButton.svelte';
+</script>
+
+<header class="titlebar">
+	<TrafficLights />
+
+	<div class="left">
+		<button class="iconbtn" type="button" aria-label="Toggle navigator">
+			<svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
+				<rect x="0.5" y="0.5" width="13" height="13" rx="2" fill="none" stroke="currentColor" />
+				<line x1="5" y1="0.5" x2="5" y2="13.5" stroke="currentColor" />
+			</svg>
+		</button>
+	</div>
+
+	<div class="center">
+		<RunButton />
+		<SchemePicker />
+	</div>
+
+	<div class="title">
+		<span class="proj">Mostafa</span>
+		<span class="sep">›</span>
+		<span class="active">README.md</span>
+	</div>
+
+	<div class="right">
+		<button class="iconbtn" type="button" aria-label="Toggle inspector">
+			<svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
+				<rect x="0.5" y="0.5" width="13" height="13" rx="2" fill="none" stroke="currentColor" />
+				<line x1="9" y1="0.5" x2="9" y2="13.5" stroke="currentColor" />
+			</svg>
+		</button>
+	</div>
+</header>
+
+<style>
+	.titlebar {
+		grid-area: titlebar;
+		height: var(--xc-titlebar-height);
+		display: grid;
+		grid-template-columns: auto 1fr auto 1fr auto;
+		align-items: center;
+		gap: 12px;
+		padding-inline-end: 12px;
+		background: var(--xc-bg-titlebar);
+		border-block-end: 1px solid var(--xc-border);
+		user-select: none;
+		-webkit-app-region: drag;
+	}
+	.left,
+	.center,
+	.right {
+		display: inline-flex;
+		gap: 8px;
+		align-items: center;
+		-webkit-app-region: no-drag;
+	}
+	.center {
+		justify-self: start;
+	}
+	.right {
+		justify-self: end;
+	}
+	.title {
+		justify-self: center;
+		display: inline-flex;
+		gap: 8px;
+		align-items: center;
+		font-size: var(--fs-ui-tight);
+		color: var(--xc-text);
+		-webkit-app-region: no-drag;
+	}
+	.title .proj {
+		color: var(--xc-text-secondary);
+	}
+	.title .sep {
+		color: var(--xc-text-tertiary);
+	}
+	.title .active {
+		font-weight: 500;
+	}
+	.iconbtn {
+		width: 28px;
+		height: 26px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		color: var(--xc-text-secondary);
+		border-radius: 4px;
+	}
+	.iconbtn:hover {
+		background: var(--xc-border);
+		color: var(--xc-text);
+	}
+</style>
