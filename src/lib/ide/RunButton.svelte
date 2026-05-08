@@ -1,7 +1,15 @@
 <script lang="ts">
-	// No-op for Phase A. State machine wiring lands in Phase B.
-	type State = 'idle' | 'compiling' | 'booting' | 'running';
-	let state = $state<State>('idle');
+	import { simulator, simState } from '$lib/stores/simulator';
+	import { activeScheme, schemeLabel } from '$lib/stores/scheme';
+
+	function build() {
+		const app = $activeScheme;
+		simulator.build(app, schemeLabel[app]);
+	}
+
+	function stop() {
+		simulator.stop();
+	}
 </script>
 
 <div class="run-stop">
@@ -9,7 +17,8 @@
 		class="btn run"
 		type="button"
 		aria-label="Build and run"
-		disabled={state !== 'idle'}
+		disabled={$simState !== 'idle'}
+		onclick={build}
 	>
 		<svg width="11" height="13" viewBox="0 0 11 13" aria-hidden="true">
 			<path d="M0 0 L11 6.5 L0 13 Z" fill="currentColor" />
@@ -19,7 +28,8 @@
 		class="btn stop"
 		type="button"
 		aria-label="Stop"
-		disabled={state === 'idle'}
+		disabled={$simState === 'idle'}
+		onclick={stop}
 	>
 		<svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
 			<rect width="10" height="10" rx="1" fill="currentColor" />

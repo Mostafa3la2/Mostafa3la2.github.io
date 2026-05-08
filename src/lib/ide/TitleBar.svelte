@@ -1,7 +1,11 @@
 <script lang="ts">
+	import { page } from '$app/stores';
+	import { findFileByPath } from '$lib/files/tree';
 	import TrafficLights from './TrafficLights.svelte';
 	import SchemePicker from './SchemePicker.svelte';
 	import RunButton from './RunButton.svelte';
+
+	let activeFile = $derived(findFileByPath($page.url.pathname || '/'));
 </script>
 
 <header class="titlebar">
@@ -24,7 +28,7 @@
 	<div class="title">
 		<span class="proj">Mostafa</span>
 		<span class="sep">›</span>
-		<span class="active">README.md</span>
+		<span class="active">{activeFile?.name ?? 'README.md'}</span>
 	</div>
 
 	<div class="right">
