@@ -2,6 +2,10 @@
 	import { simulator, simState } from '$lib/stores/simulator';
 	import { activeScheme, schemeLabel } from '$lib/stores/scheme';
 
+	// build() is always callable — matches real Xcode where clicking ▶ while
+	// running cancels the current build/run and starts a new one. The
+	// simulator store's buildToken makes any in-flight build self-cancel
+	// when a new one begins (logs reset, state goes back to compiling).
 	function build() {
 		const app = $activeScheme;
 		simulator.build(app, schemeLabel[app]);
@@ -17,7 +21,7 @@
 		class="btn run"
 		type="button"
 		aria-label="Build and run"
-		disabled={$simState !== 'idle'}
+		title={$simState === 'idle' ? 'Run' : 'Restart — stop and run again'}
 		onclick={build}
 	>
 		<svg width="11" height="13" viewBox="0 0 11 13" aria-hidden="true">
@@ -28,6 +32,7 @@
 		class="btn stop"
 		type="button"
 		aria-label="Stop"
+		title="Stop"
 		disabled={$simState === 'idle'}
 		onclick={stop}
 	>
