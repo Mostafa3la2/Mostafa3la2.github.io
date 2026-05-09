@@ -11,9 +11,9 @@
 import { writable, derived, get } from 'svelte/store';
 import type { Readable, Writable } from 'svelte/store';
 
-export type SimState = 'idle' | 'compiling' | 'booting' | 'running';
+export type SimState = 'idle' | 'compiling' | 'booting' | 'running' | 'failed';
 
-export type AppId = 'neo' | 'tru' | 'babysteps' | 'takhawi';
+export type AppId = 'neo' | 'tru' | 'babysteps' | 'takhawi' | 'earlier';
 
 export interface LogLine {
 	t: string;
@@ -27,6 +27,7 @@ interface SimStore {
 	currentApp: Writable<AppId | null>;
 	build(app: AppId, scheme: string): Promise<void>;
 	stop(): void;
+	dismissFailure(): void;
 	clearLogs(): void;
 	canBuild: Readable<boolean>;
 	isRunning: Readable<boolean>;
@@ -63,7 +64,18 @@ function appBundleName(app: AppId): string {
 		case 'tru': return 'TRU';
 		case 'babysteps': return 'BabySteps';
 		case 'takhawi': return 'Takhawi';
+		case 'earlier': return 'Earlier';
 	}
+}
+
+function failureLines(scheme: string): { delayMs: number; text: string; tone?: LogLine['tone'] }[] {
+	return [
+		{ delayMs: 0,   text: `Building Mostafa.xcodeproj — scheme ${scheme}…` },
+		{ delayMs: 90,  text: 'Resolving package graph' },
+		{ delayMs: 220, text: `Compile ${scheme}.swift (1 of 1)` },
+		{ delayMs: 380, text: 'Source files unavailable — referenced binaries only', tone: 'error' },
+		{ delayMs: 480, text: 'Build failed', tone: 'error' }
+	];
 }
 
 function createSimulator(): SimStore {
@@ -87,6 +99,26 @@ function createSimulator(): SimStore {
 		const reduced = typeof window !== 'undefined' &&
 			window.matchMedia &&
 			window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+		// Earlier has no source — short-circuit to a build failure.
+		if (app === 'earlier') {
+			const lines = failureLines(scheme);
+			const startedAt = Date.now();
+			for (const { delayMs, text, tone } of lines) {
+				if (reduced) {
+					append({ t: timestamp(), text, tone });
+					continue;
+				}
+				const target = startedAt + delayMs;
+				const remaining = target - Date.now();
+				if (remaining > 0) await sleep(remaining);
+				if (token !== buildToken) return;
+				append({ t: timestamp(), text, tone });
+			}
+			if (token !== buildToken) return;
+			state.set('failed');
+			return;
+		}
 
 		const lines = lineFor(app, scheme);
 		const startedAt = Date.now();
@@ -121,6 +153,10 @@ function createSimulator(): SimStore {
 		append({ t: timestamp(), text: 'Simulator stopped.', tone: 'plain' });
 	}
 
+	function dismissFailure() {
+		state.set('idle');
+	}
+
 	function clearLogs() {
 		logs.set([]);
 	}
@@ -128,7 +164,7 @@ function createSimulator(): SimStore {
 	const canBuild = derived(state, ($state) => $state === 'idle');
 	const isRunning = derived(state, ($state) => $state === 'running');
 
-	return { state, logs, currentApp, build, stop, clearLogs, canBuild, isRunning };
+	return { state, logs, currentApp, build, stop, dismissFailure, clearLogs, canBuild, isRunning };
 }
 
 function sleep(ms: number): Promise<void> {

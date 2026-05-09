@@ -103,9 +103,6 @@
 	.caret.open {
 		transform: rotate(90deg);
 	}
-	[dir='rtl'] .caret.open {
-		transform: rotate(90deg);
-	}
 
 	.tree-wrap {
 		overflow-y: auto;

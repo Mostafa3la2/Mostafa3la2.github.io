@@ -68,9 +68,6 @@
 		font-size: 14px;
 		line-height: 1;
 	}
-	[dir='rtl'] .back .chev { transform: scaleX(-1); }
-	[dir='rtl'] .forward .chev { transform: scaleX(-1); }
-
 	.crumbs {
 		display: flex;
 		align-items: center;
@@ -97,8 +94,5 @@
 	}
 	.sep {
 		color: var(--xc-text-tertiary);
-	}
-	[dir='rtl'] .sep {
-		transform: scaleX(-1);
 	}
 </style>

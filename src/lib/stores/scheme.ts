@@ -16,5 +16,6 @@ export const schemeLabel: Record<AppId, string> = {
 	neo: 'NEO',
 	tru: 'TRU',
 	babysteps: 'BabySteps',
-	takhawi: 'Takhawi'
+	takhawi: 'Takhawi',
+	earlier: 'Earlier'
 };

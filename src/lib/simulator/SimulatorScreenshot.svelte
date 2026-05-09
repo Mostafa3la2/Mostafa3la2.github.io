@@ -5,7 +5,10 @@
 	type Props = { app: AppId };
 	let { app }: Props = $props();
 
-	const screens: Record<AppId, { src: string; alt: string; label: string }> = {
+	// Earlier has no screenshot — the build state machine short-circuits to
+	// 'failed' before this component ever sees app='earlier'. Partial type
+	// reflects that.
+	const screens: Partial<Record<AppId, { src: string; alt: string; label: string }>> = {
 		neo: {
 			src: `${base}/assets/screens/NEO.png`,
 			alt: 'NEO banking app — Saudi Riyal account home screen with widgets and recent transactions',
@@ -32,7 +35,9 @@
 </script>
 
 <div class="shot-wrap">
-	<img class="shot" src={current.src} alt={current.alt} draggable="false" />
+	{#if current}
+		<img class="shot" src={current.src} alt={current.alt} draggable="false" />
+	{/if}
 </div>
 
 <style>

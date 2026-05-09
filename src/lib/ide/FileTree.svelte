@@ -80,12 +80,6 @@
 	.caret.open {
 		transform: rotate(90deg);
 	}
-	[dir='rtl'] .caret {
-		transform: rotate(180deg);
-	}
-	[dir='rtl'] .caret.open {
-		transform: rotate(90deg);
-	}
 	.icon {
 		width: 14px;
 		display: inline-flex;

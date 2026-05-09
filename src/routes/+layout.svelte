@@ -7,8 +7,20 @@
 	import SimulatorPane from '$lib/ide/SimulatorPane.svelte';
 	import ConsolePane from '$lib/ide/ConsolePane.svelte';
 	import StatusBar from '$lib/ide/StatusBar.svelte';
+	import XcodeAlert from '$lib/ide/XcodeAlert.svelte';
+	import { simulator, simState } from '$lib/stores/simulator';
 
 	let { children } = $props();
+
+	let failureOpen = $derived($simState === 'failed');
+
+	const failureActions = [
+		{
+			label: 'OK',
+			primary: true,
+			onclick: () => simulator.dismissFailure()
+		}
+	];
 </script>
 
 <div class="ide" data-xcode-version="26">
@@ -22,6 +34,14 @@
 	<ConsolePane />
 	<StatusBar />
 </div>
+
+<XcodeAlert
+	open={failureOpen}
+	variant="error"
+	title="Source Unavailable"
+	message="The Earlier scheme references seven apps shipped between 2018 and 2023 under client NDAs (PTC, MGeHR, SWCC, Walto-Quran, Tadaway, Meshini/Ma'an, Kaza Shella). Compiled binaries only — no source in this project. Open Sources/Earlier.swift for the archive list."
+	actions={failureActions}
+/>
 
 <style>
 	.ide {
