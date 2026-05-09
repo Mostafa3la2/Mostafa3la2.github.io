@@ -2,7 +2,7 @@
 	import { activeScheme, activeDevice, schemeLabel } from '$lib/stores/scheme';
 	import type { AppId } from '$lib/stores/simulator';
 
-	const schemes: AppId[] = ['neo', 'tru', 'babysteps', 'takhawi', 'earlier'];
+	const schemes: AppId[] = ['neo', 'tru', 'babysteps', 'takhawi', 'contact', 'earlier'];
 	const devices = ['iPhone 15 Pro', 'iPhone SE', 'iPad Pro 13"'] as const;
 
 	let schemeOpen = $state(false);

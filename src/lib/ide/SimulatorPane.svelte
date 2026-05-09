@@ -3,12 +3,14 @@
 	import { activeDevice, schemeLabel } from '$lib/stores/scheme';
 	import Frame from '$lib/simulator/Frame.svelte';
 	import SimulatorScreenshot from '$lib/simulator/SimulatorScreenshot.svelte';
+	import ContactApp from '$lib/simulator/apps/ContactApp.svelte';
 
 	const accents: Record<string, string> = {
 		neo: '#0bb6a8',
 		tru: '#5b3ec8',
 		babysteps: '#a78bfa',
-		takhawi: '#7d5524'
+		takhawi: '#7d5524',
+		contact: '#0a84ff'
 	};
 </script>
 
@@ -32,7 +34,7 @@
 		<Frame
 			device={$activeDevice}
 			accent={$simCurrentApp ? accents[$simCurrentApp] : '#5896d6'}
-			bare={$simState === 'running'}
+			bare={$simState === 'running' && $simCurrentApp !== 'contact'}
 		>
 			{#if $simState === 'idle'}
 				<div class="centered">
@@ -49,6 +51,8 @@
 						<path d="M14 16 L22 12 L30 16 L30 28 L22 32 L14 28 Z" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="1"/>
 					</svg>
 				</div>
+			{:else if $simState === 'running' && $simCurrentApp === 'contact'}
+				<ContactApp />
 			{:else if $simState === 'running' && $simCurrentApp}
 				<SimulatorScreenshot app={$simCurrentApp} />
 			{/if}

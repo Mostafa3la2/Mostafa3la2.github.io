@@ -13,7 +13,7 @@ import type { Readable, Writable } from 'svelte/store';
 
 export type SimState = 'idle' | 'compiling' | 'booting' | 'running' | 'failed';
 
-export type AppId = 'neo' | 'tru' | 'babysteps' | 'takhawi' | 'earlier';
+export type AppId = 'neo' | 'tru' | 'babysteps' | 'takhawi' | 'earlier' | 'contact';
 
 export interface LogLine {
 	t: string;
@@ -65,6 +65,7 @@ function appBundleName(app: AppId): string {
 		case 'babysteps': return 'BabySteps';
 		case 'takhawi': return 'Takhawi';
 		case 'earlier': return 'Earlier';
+		case 'contact': return 'Contact';
 	}
 }
 

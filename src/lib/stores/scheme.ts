@@ -17,5 +17,6 @@ export const schemeLabel: Record<AppId, string> = {
 	tru: 'TRU',
 	babysteps: 'BabySteps',
 	takhawi: 'Takhawi',
-	earlier: 'Earlier'
+	earlier: 'Earlier',
+	contact: 'Contact'
 };
