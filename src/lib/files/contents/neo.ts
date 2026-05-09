@@ -23,11 +23,10 @@ struct NEO: Project {
     ]
 
     let highlights = [
-        "Multi-currency cards alongside the everyday account",
-        "Cinema, restaurant, and travel bookings inside the bank",
+        "Payments, card issuance, and other banking services",
         "Modular Swift atop a Backbase-driven monorepo",
-        "Released for the Saudi market — bilingual, prayer-time-aware,",
-        "weekend on Friday, the small things that signal you built it for here",
+        "Released for the Saudi market — bilingual, prayer-time-aware",
+        "lifestyle and health features"
     ]
 
     /// Tap ▶ to boot the simulator and try it.

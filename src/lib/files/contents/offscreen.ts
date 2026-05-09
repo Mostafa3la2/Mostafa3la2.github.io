@@ -12,7 +12,7 @@ enum OffScreen {
     case games(taste: String)
 
     /// Heavy character work, tight popcorn engineering. Both, often.
-    case cinema(habit: Habit)
+    case movies(habit: Habit)
 
     /// Spec sheets, suspension geometry, the market.
     case cars(angle: Angle)
@@ -28,7 +28,7 @@ enum OffScreen {
 
     static let all: [OffScreen] = [
         .games(taste: "long campaigns, slow burns, layered systems on the second playthrough"),
-        .cinema(habit: .weekly),
+        .movies(habit: .weekly),
         .cars(angle: .engineering),
         .tinkering(scope: .deskRig),
         .sports(set: ["Football", "Tennis", "Formula 1"]),

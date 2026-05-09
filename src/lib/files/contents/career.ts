@@ -22,7 +22,7 @@ Egypt's leading buy-now-pay-later app. Three things I'm proud of:
   server and onto the phone. Faster, cheaper, more private.
 - **CI/CD migration: Bitrise → Xcode Cloud** — roughly halved total
   pipeline time. Apple Silicon helps; cleaner caching helps more.
-- **iOS design system** — tokens, components, dark mode, accessibility.
+- **iOS design system** — tokens, components, accessibility.
   The kind of plumbing that pays back forever.
 
 ---
@@ -30,8 +30,7 @@ Egypt's leading buy-now-pay-later app. Three things I'm proud of:
 ## Emircom · KSA & UAE — Senior Mobile Developer
 **2019 → 2023**
 
-Government and enterprise portals across the Gulf. Petroleum Training
-Center (Bahrain), Ministry of Health staff portal (Saudi), Saline Water
+Government and enterprise portals across the Gulf. Public Transport Company PTC (Riyadh), Ministry of Health (Saudi), Saline Water
 Conversion Corp (Saudi). Slow processes, careful releases, the kind of
 work that teaches you to ship calmly.
 

@@ -12,7 +12,7 @@ struct Mostafa {
     let location  = "Cairo, Egypt"
     let arabic    = "مصطفى علاء"
 
-    let lede = """
+    let intro = """
     I build iOS software for banking, fintech, ride hailing, and trip
     booking — from KYC flows that catch fraud to apps shipping at scale.
     """

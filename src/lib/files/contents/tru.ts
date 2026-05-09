@@ -32,11 +32,11 @@ struct TRU: Project {
             note: "Cut total run time roughly in half. New Macs help; cleaner caching helps more."
         ),
         Shipped(
-            name: "Authored the iOS design system",
-            note: "Tokens, components, dark mode, accessibility, the kind of plumbing that pays back forever."
+            name: "co-authored the iOS design system",
+            note: "Tokens, components, accessibility, the kind of plumbing that pays back forever."
         ),
         Shipped(
-            name: "BLE-first onboarding for partner devices",
+            name: "BLE-first activation for partner devices",
             note: "When you're handing out hardware, the pairing flow is the product."
         ),
     ]
