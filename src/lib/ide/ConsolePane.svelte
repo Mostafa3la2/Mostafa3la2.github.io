@@ -1,10 +1,11 @@
 <script lang="ts">
 	import { simLogs, simulator } from '$lib/stores/simulator';
-	import { t } from '$lib/i18n/strings';
+	import { onMount } from 'svelte';
 
 	let scrollEl: HTMLDivElement | null = $state(null);
 
 	$effect(() => {
+		// Scroll to bottom whenever new lines arrive.
 		const _ = $simLogs.length;
 		if (scrollEl) scrollEl.scrollTop = scrollEl.scrollHeight;
 	});
@@ -14,12 +15,12 @@
 	}
 </script>
 
-<section class="console" aria-label={$t('console.tab.console')}>
+<section class="console" aria-label="Console">
 	<header class="console-header">
-		<button class="ctab active" type="button">{$t('console.tab.console')}</button>
-		<button class="ctab" type="button">{$t('console.tab.issues')}</button>
+		<button class="ctab active" type="button">Console</button>
+		<button class="ctab" type="button">Issues</button>
 		<span class="spacer"></span>
-		<button class="iconbtn" type="button" aria-label={$t('console.clear')} onclick={clear}>
+		<button class="iconbtn" type="button" aria-label="Clear console" onclick={clear}>
 			<svg width="11" height="11" viewBox="0 0 11 11" aria-hidden="true">
 				<path d="M2 2 h7 l-1 7 a1 1 0 0 1 -1 1 h-3 a1 1 0 0 1 -1 -1 z" fill="none" stroke="currentColor" />
 				<line x1="0.5" y1="2" x2="10.5" y2="2" stroke="currentColor" />
@@ -31,17 +32,11 @@
 		{#each $simLogs as log, i (i)}
 			<div class="line" data-tone={log.tone ?? 'plain'}>
 				<span class="ts">{log.t}</span>
-				<span
-					class="text"
-					class:success={log.tone === 'success'}
-					class:error={log.tone === 'error'}
-				>
-					{$t(log.key, log.vars)}
-				</span>
+				<span class="text" class:success={log.tone === 'success'} class:error={log.tone === 'error'}>{log.text}</span>
 			</div>
 		{/each}
 		{#if $simLogs.length === 0}
-			<div class="empty">{$t('console.cleared')}</div>
+			<div class="empty">Console cleared.</div>
 		{/if}
 	</div>
 </section>
@@ -98,7 +93,6 @@
 		font-size: var(--fs-mono-tight);
 		color: var(--xc-text);
 		padding: 8px 12px;
-		direction: ltr;
 	}
 	.line {
 		display: flex;

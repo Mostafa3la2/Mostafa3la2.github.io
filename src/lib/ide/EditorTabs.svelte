@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { FileNode } from '$lib/files/tree';
 	import { goto } from '$app/navigation';
-	import { t } from '$lib/i18n/strings';
 
 	type Props = { tabs: FileNode[]; activePath: string };
 	let { tabs, activePath }: Props = $props();
@@ -18,7 +17,7 @@
 			type="button"
 		>
 			<span class="name">{tab.name}</span>
-			<span class="close" aria-label={$t('editor.tab.close')} tabindex="-1" role="presentation">×</span>
+			<span class="close" aria-label="Close" tabindex="-1" role="presentation">×</span>
 		</button>
 	{/each}
 </div>

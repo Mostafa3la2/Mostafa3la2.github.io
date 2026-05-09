@@ -1,30 +1,23 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { t } from '$lib/i18n/strings';
-	import { locale } from '$lib/stores/locale';
 
 	let cairoTime = $state('—');
 
-	function formatCairo(d: Date, l: 'en' | 'ar'): string {
+	function formatCairo(d: Date): string {
 		try {
-			return new Intl.DateTimeFormat(l === 'ar' ? 'ar-EG' : 'en-GB', {
+			return new Intl.DateTimeFormat('en-GB', {
 				timeZone: 'Africa/Cairo',
 				hour: '2-digit',
 				minute: '2-digit',
-				hour12: false,
-				numberingSystem: 'latn'
+				hour12: false
 			}).format(d);
 		} catch {
 			return '—';
 		}
 	}
 
-	$effect(() => {
-		cairoTime = formatCairo(new Date(), $locale);
-	});
-
 	onMount(() => {
-		const tick = () => (cairoTime = formatCairo(new Date(), $locale));
+		const tick = () => (cairoTime = formatCairo(new Date()));
 		tick();
 		const id = setInterval(tick, 30 * 1000);
 		return () => clearInterval(id);
@@ -33,9 +26,9 @@
 
 <footer class="statusbar">
 	<span class="dot ready" aria-hidden="true"></span>
-	<span class="ready-label">{$t('status.ready')}</span>
+	<span class="ready-label">Ready</span>
 	<span class="sep" aria-hidden="true">•</span>
-	<span class="branch" dir="ltr">
+	<span class="branch">
 		<span class="branch-icon" aria-hidden="true">
 			<svg width="11" height="11" viewBox="0 0 11 11" aria-hidden="true">
 				<circle cx="2.5" cy="2.5" r="1.5" fill="none" stroke="currentColor" />
@@ -50,9 +43,9 @@
 
 	<span class="spacer"></span>
 
-	<span class="cairo">{$t('status.cairo')} · {cairoTime}</span>
+	<span class="cairo">Cairo · {cairoTime}</span>
 	<span class="sep" aria-hidden="true">•</span>
-	<span class="version" dir="ltr">{$t('status.version')}</span>
+	<span class="version">Mostafa.xcodeproj v3.0.0-alpha</span>
 </footer>
 
 <style>

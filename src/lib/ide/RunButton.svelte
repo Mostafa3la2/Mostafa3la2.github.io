@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { simulator, simState } from '$lib/stores/simulator';
 	import { activeScheme, schemeLabel } from '$lib/stores/scheme';
-	import { t } from '$lib/i18n/strings';
 
 	function build() {
 		const app = $activeScheme;
@@ -17,7 +16,7 @@
 	<button
 		class="btn run"
 		type="button"
-		aria-label={$t('run.build')}
+		aria-label="Build and run"
 		disabled={$simState !== 'idle'}
 		onclick={build}
 	>
@@ -28,7 +27,7 @@
 	<button
 		class="btn stop"
 		type="button"
-		aria-label={$t('run.stop')}
+		aria-label="Stop"
 		disabled={$simState === 'idle'}
 		onclick={stop}
 	>

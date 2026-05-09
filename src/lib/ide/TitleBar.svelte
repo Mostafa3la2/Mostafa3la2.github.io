@@ -1,11 +1,9 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { findFileByPath } from '$lib/files/tree';
-	import { t } from '$lib/i18n/strings';
 	import TrafficLights from './TrafficLights.svelte';
 	import SchemePicker from './SchemePicker.svelte';
 	import RunButton from './RunButton.svelte';
-	import LocaleToggle from './LocaleToggle.svelte';
 
 	let activeFile = $derived(findFileByPath($page.url.pathname || '/'));
 </script>
@@ -14,7 +12,7 @@
 	<TrafficLights />
 
 	<div class="left">
-		<button class="iconbtn" type="button" aria-label={$t('titlebar.toggle_navigator')}>
+		<button class="iconbtn" type="button" aria-label="Toggle navigator">
 			<svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
 				<rect x="0.5" y="0.5" width="13" height="13" rx="2" fill="none" stroke="currentColor" />
 				<line x1="5" y1="0.5" x2="5" y2="13.5" stroke="currentColor" />
@@ -28,14 +26,13 @@
 	</div>
 
 	<div class="title">
-		<span class="proj">{$t('titlebar.project_name')}</span>
-		<span class="sep" aria-hidden="true">›</span>
+		<span class="proj">Mostafa</span>
+		<span class="sep">›</span>
 		<span class="active">{activeFile?.name ?? 'README.md'}</span>
 	</div>
 
 	<div class="right">
-		<LocaleToggle />
-		<button class="iconbtn" type="button" aria-label={$t('titlebar.toggle_inspector')}>
+		<button class="iconbtn" type="button" aria-label="Toggle inspector">
 			<svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
 				<rect x="0.5" y="0.5" width="13" height="13" rx="2" fill="none" stroke="currentColor" />
 				<line x1="9" y1="0.5" x2="9" y2="13.5" stroke="currentColor" />
@@ -86,9 +83,6 @@
 	}
 	.title .sep {
 		color: var(--xc-text-tertiary);
-	}
-	:global([dir='rtl']) .title .sep {
-		transform: scaleX(-1);
 	}
 	.title .active {
 		font-weight: 500;

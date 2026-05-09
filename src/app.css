@@ -121,14 +121,6 @@ body {
 	text-rendering: optimizeLegibility;
 }
 
-/* Arabic mode: swap to a font stack that handles Arabic shaping well.
-   System Arabic fonts on Apple platforms (SF Arabic / Geeza Pro) are
-   excellent — using them avoids a webfont round-trip in v1. IBM Plex
-   Sans Arabic can be added later. */
-[dir='rtl'] {
-	font-family: var(--font-arabic);
-}
-
 [dir='rtl'] body {
 	font-family: var(--font-arabic);
 }
