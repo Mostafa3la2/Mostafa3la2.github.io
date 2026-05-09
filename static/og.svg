@@ -1,0 +1,202 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+	<defs>
+		<style>
+			.bg { fill: #1f1f24; }
+			.titlebar { fill: #2a2a2f; }
+			.border { stroke: #3a3a40; stroke-width: 1; fill: none; }
+			.divider { stroke: #2c2c30; stroke-width: 1; }
+			.tl-close { fill: #ff5f57; }
+			.tl-min { fill: #febc2e; }
+			.tl-max { fill: #28c840; }
+			.scheme-pill { fill: #2f2f35; stroke: #3a3a40; }
+			.run-bg { fill: #2f2f35; stroke: #3a3a40; }
+			.run-tri { fill: #67b7a4; }
+			.text-primary { fill: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', system-ui, sans-serif; }
+			.text-secondary { fill: #a1a1a6; font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', system-ui, sans-serif; }
+			.text-tertiary { fill: #6e6e73; font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', system-ui, sans-serif; }
+			.text-mono { font-family: 'JetBrains Mono', 'SF Mono', 'Menlo', ui-monospace, monospace; }
+			.kw { fill: #ff7ab2; }
+			.ty { fill: #dac8ff; }
+			.str { fill: #ff8170; }
+			.cm { fill: #7c7c82; font-style: italic; }
+			.fn { fill: #67b7a4; }
+			.gutter { fill: #1a1a1f; }
+			.gutter-fg { fill: #555558; font-family: 'JetBrains Mono', 'SF Mono', 'Menlo', ui-monospace, monospace; }
+			.sidebar { fill: #1f1f24; }
+			.file-row { fill: #2c2c30; }
+			.file-row-active { fill: #0a84ff; }
+			.proj-icon { fill: #5896d6; }
+		</style>
+	</defs>
+
+	<!-- background -->
+	<rect class="bg" width="1200" height="630" />
+
+	<!-- titlebar -->
+	<rect class="titlebar" x="0" y="0" width="1200" height="44" />
+	<line class="border" x1="0" y1="44" x2="1200" y2="44" />
+
+	<!-- traffic lights -->
+	<circle class="tl-close" cx="20" cy="22" r="6" />
+	<circle class="tl-min" cx="40" cy="22" r="6" />
+	<circle class="tl-max" cx="60" cy="22" r="6" />
+
+	<!-- run + scheme pill (centered-left) -->
+	<rect class="run-bg" x="100" y="9" width="62" height="26" rx="6" />
+	<polygon class="run-tri" points="120,16 134,22 120,28" />
+	<line stroke="#3a3a40" x1="131" y1="9" x2="131" y2="35" />
+	<rect class="scheme-pill" x="170" y="9" width="220" height="26" rx="6" />
+	<rect x="180" y="14" width="14" height="14" rx="3" fill="#ff7ab2" />
+	<text class="text-primary" x="200" y="27" font-size="13" font-weight="500">NEO</text>
+	<text class="text-tertiary" x="232" y="27" font-size="13">›</text>
+	<text class="text-secondary" x="244" y="27" font-size="13">iPhone 15 Pro</text>
+
+	<!-- center: project crumbs -->
+	<text class="text-secondary" x="600" y="27" font-size="13" text-anchor="middle">
+		Mostafa › <tspan class="text-primary" font-weight="500">README.md</tspan>
+	</text>
+
+	<!-- sidebar -->
+	<rect class="sidebar" x="0" y="44" width="240" height="586" />
+	<line class="border" x1="240" y1="44" x2="240" y2="630" />
+
+	<!-- project header in sidebar -->
+	<rect x="14" y="56" width="22" height="22" rx="4" class="proj-icon" />
+	<polygon points="18,67 25,62 32,67 32,76 25,80 18,76" fill="none" stroke="#fff" stroke-width="0.8" opacity="0.9" />
+	<text class="text-primary" x="42" y="71" font-size="13" font-weight="500">Mostafa</text>
+
+	<!-- file rows -->
+	<g font-size="12" class="text-mono">
+		<rect class="file-row-active" x="6" y="92" width="228" height="22" rx="4" />
+		<text class="text-primary" x="42" y="107">README.md</text>
+
+		<text class="text-primary" x="14" y="135" font-size="11">▸ Sources</text>
+		<text class="text-primary" x="42" y="158">AboutMe.swift</text>
+		<text class="text-primary" x="42" y="178">NEO.swift</text>
+		<text class="text-primary" x="42" y="198">TRU.swift</text>
+		<text class="text-primary" x="42" y="218">BabySteps.swift</text>
+		<text class="text-primary" x="42" y="238">Takhawi.swift</text>
+		<text class="text-primary" x="42" y="258">Earlier.swift</text>
+
+		<text class="text-primary" x="14" y="285" font-size="11">▸ Resources</text>
+		<text class="text-primary" x="42" y="308">Career.md</text>
+		<text class="text-primary" x="42" y="328">Toolkit.json</text>
+		<text class="text-primary" x="42" y="348">OffScreen.swift</text>
+
+		<text class="text-primary" x="14" y="375" font-size="11">▸ Tests</text>
+		<text class="text-primary" x="42" y="398">Colophon.swift</text>
+
+		<text class="text-primary" x="14" y="425" font-size="11">▸ Contact</text>
+		<text class="text-primary" x="42" y="448">Contact.swift</text>
+	</g>
+
+	<!-- editor area -->
+	<rect class="gutter" x="240" y="44" width="56" height="586" />
+	<line class="border" x1="296" y1="44" x2="296" y2="630" />
+
+	<!-- gutter line numbers -->
+	<g class="gutter-fg" font-size="11" text-anchor="end">
+		<text x="284" y="160">1</text>
+		<text x="284" y="180">2</text>
+		<text x="284" y="200">3</text>
+		<text x="284" y="220">4</text>
+		<text x="284" y="240">5</text>
+		<text x="284" y="260">6</text>
+		<text x="284" y="280">7</text>
+		<text x="284" y="300">8</text>
+		<text x="284" y="320">9</text>
+		<text x="284" y="340">10</text>
+		<text x="284" y="360">11</text>
+		<text x="284" y="380">12</text>
+		<text x="284" y="400">13</text>
+		<text x="284" y="420">14</text>
+		<text x="284" y="440">15</text>
+	</g>
+
+	<!-- editor body -->
+	<g class="text-mono" font-size="14">
+		<text x="312" y="160" class="cm">//  Mostafa.xcodeproj</text>
+		<text x="312" y="180" class="cm">//  Senior iOS Engineer · Cairo, Egypt</text>
+
+		<text x="312" y="220">
+			<tspan class="kw">struct</tspan>
+			<tspan class="ty"> Mostafa</tspan>
+			<tspan class="text-primary"> {</tspan>
+		</text>
+		<text x="312" y="252">
+			<tspan class="text-primary">    </tspan>
+			<tspan class="kw">let</tspan>
+			<tspan class="text-primary"> name      = </tspan>
+			<tspan class="str">"Mostafa Alaa"</tspan>
+		</text>
+		<text x="312" y="280">
+			<tspan class="text-primary">    </tspan>
+			<tspan class="kw">let</tspan>
+			<tspan class="text-primary"> role      = </tspan>
+			<tspan class="str">"Senior iOS Engineer"</tspan>
+		</text>
+		<text x="312" y="308">
+			<tspan class="text-primary">    </tspan>
+			<tspan class="kw">let</tspan>
+			<tspan class="text-primary"> location  = </tspan>
+			<tspan class="str">"Cairo, Egypt"</tspan>
+		</text>
+		<text x="312" y="336">
+			<tspan class="text-primary">    </tspan>
+			<tspan class="kw">let</tspan>
+			<tspan class="text-primary"> arabic    = </tspan>
+			<tspan class="str">"مصطفى علاء"</tspan>
+		</text>
+
+		<text x="312" y="376">
+			<tspan class="text-primary">    </tspan>
+			<tspan class="kw">let</tspan>
+			<tspan class="text-primary"> years    = </tspan>
+			<tspan class="ty">8</tspan>
+			<tspan class="text-primary">       </tspan>
+			<tspan class="cm">// production iOS</tspan>
+		</text>
+		<text x="312" y="404">
+			<tspan class="text-primary">    </tspan>
+			<tspan class="kw">let</tspan>
+			<tspan class="text-primary"> apps     = </tspan>
+			<tspan class="ty">14</tspan>
+			<tspan class="text-primary">      </tspan>
+			<tspan class="cm">// shipped, in the App Store</tspan>
+		</text>
+		<text x="312" y="432">
+			<tspan class="text-primary">    </tspan>
+			<tspan class="kw">let</tspan>
+			<tspan class="text-primary"> markets  = </tspan>
+			<tspan class="ty">4</tspan>
+			<tspan class="text-primary">       </tspan>
+			<tspan class="cm">// Egypt · KSA · UAE · Bahrain</tspan>
+		</text>
+
+		<text x="312" y="476">
+			<tspan class="text-primary">    </tspan>
+			<tspan class="kw">var</tspan>
+			<tspan class="text-primary"> currentlyShipping: [</tspan>
+			<tspan class="ty">WIP</tspan>
+			<tspan class="text-primary">] = [</tspan>
+		</text>
+		<text x="312" y="504">
+			<tspan class="text-primary">        .</tspan>
+			<tspan class="fn">neo</tspan>
+			<tspan class="text-primary">(.engineering, market: .saudiArabia),</tspan>
+		</text>
+		<text x="312" y="532">
+			<tspan class="text-primary">        .</tspan>
+			<tspan class="fn">babySteps</tspan>
+			<tspan class="text-primary">(.shipping, role: .everything),</tspan>
+		</text>
+		<text x="312" y="560" class="text-primary">    ]</text>
+		<text x="312" y="588" class="text-primary">}</text>
+	</g>
+
+	<!-- bottom-right wordmark / brand -->
+	<g transform="translate(940, 540)">
+		<text class="text-primary text-mono" font-size="13" font-weight="500">Mostafa.xcodeproj</text>
+		<text class="text-tertiary" y="20" font-size="11">mostafa3la2.github.io</text>
+	</g>
+</svg>
