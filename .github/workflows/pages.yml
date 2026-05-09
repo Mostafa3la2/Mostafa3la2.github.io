@@ -1,0 +1,62 @@
+# Deploys the SvelteKit static export to GitHub Pages on every push to main.
+#
+# This workflow does NOT run by itself the first time. Before the first deploy,
+# go to the repo's Settings → Pages and change "Source" from "Deploy from a
+# branch" to "GitHub Actions". After that one toggle, every future push to main
+# (or a manual run from the Actions tab) auto-builds and auto-deploys.
+
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Token scopes the workflow needs. GITHUB_TOKEN is auto-provisioned;
+# no PAT or secrets to set up.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deploy at a time. Queue rather than cancel — never half-deploy.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build SvelteKit static export
+        run: bun run build
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
