@@ -1,8 +1,12 @@
 /*
  * Mostafa.xcodeproj — design tokens
  *
- * Xcode 26 dark palette (Default Dark theme). Values are sampled approximations;
- * verify against a fresh Xcode 26 install before locking pixel-fidelity tests.
+ * Default values are Xcode 26 dark. The [data-theme="xcode-light"] block
+ * overrides every token for the light variant — every component reads
+ * tokens, so the whole UI flips with one attribute swap on <html>.
+ *
+ * Sample colors directly from a fresh Xcode 26 install before locking
+ * pixel-fidelity tests.
  */
 
 :root {
@@ -34,7 +38,9 @@
 	--xc-focus: #4a90e2;
 	--xc-blue: #0a84ff;
 
-	/* Syntax — Default (Dark), Xcode 26 */
+	/* Syntax — Default (Dark), Xcode 26 (kept for direct use; Shiki ships
+	 * its own CSS vars for the editor body and resolves them via the
+	 * .shiki rules below). */
 	--syn-plain: #ffffff;
 	--syn-comment: #7c7c82;
 	--syn-doc-comment: #7c7c82;
@@ -46,7 +52,7 @@
 	--syn-preprocessor: #ffa14f;
 	--syn-url: #6bdfff;
 	--syn-attribute: #ffa14f;
-	--syn-type-system: #6bdfff; /* "Other Type Names" */
+	--syn-type-system: #6bdfff;
 	--syn-type-user: #dac8ff;
 	--syn-decl-system: #67b7a4;
 	--syn-decl-user: #41a1c0;
@@ -93,6 +99,64 @@
 	--dur-slow: 320ms;
 	--ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
 	--ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+	color-scheme: dark;
+}
+
+/* Light mode — full token override. */
+[data-theme='xcode-light'] {
+	--xc-bg: #ffffff;
+	--xc-bg-deeper: #f5f5f7;
+	--xc-bg-titlebar: #ececee;
+	--xc-bg-sidebar: #f5f5f7;
+	--xc-bg-editor: #ffffff;
+	--xc-bg-editor-active-line: #f4f4f4;
+	--xc-bg-inspector: #f5f5f7;
+	--xc-bg-console: #fafafa;
+	--xc-bg-statusbar: #ececee;
+	--xc-bg-elevated: #ffffff;
+
+	--xc-border: #d2d2d7;
+	--xc-border-subtle: #e5e5e9;
+	--xc-border-strong: #b8b8bc;
+
+	--xc-text: #1f1f1f;
+	--xc-text-secondary: #4d4d52;
+	--xc-text-tertiary: #86868b;
+	--xc-text-disabled: #b8b8bc;
+
+	--xc-selection: rgba(181, 213, 255, 0.55);
+	--xc-focus: #007aff;
+	--xc-blue: #0066cc;
+
+	--syn-plain: #1f1f1f;
+	--syn-comment: #707f8c;
+	--syn-doc-comment: #707f8c;
+	--syn-doc-keyword: #5e5e63;
+	--syn-string: #c41a16;
+	--syn-character: #c41a16;
+	--syn-number: #1c00cf;
+	--syn-keyword: #9b2393;
+	--syn-preprocessor: #643820;
+	--syn-url: #0f68a0;
+	--syn-attribute: #643820;
+	--syn-type-system: #0f68a0;
+	--syn-type-user: #5c2699;
+	--syn-decl-system: #326d74;
+	--syn-decl-user: #4f8187;
+	--syn-class: #5c2699;
+	--syn-function: #326d74;
+	--syn-constant: #0e73a2;
+
+	--xc-gutter-bg: #ffffff;
+	--xc-gutter-fg: #a8a8a8;
+	--xc-gutter-active: #000000;
+
+	--xc-success: #34a45e;
+	--xc-warning: #c47c00;
+	--xc-error: #d11920;
+
+	color-scheme: light;
 }
 
 /* RESET — minimal, keeps predictable boxes */
@@ -114,6 +178,7 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	text-rendering: optimizeLegibility;
+	transition: background-color var(--dur-medium) var(--ease-out);
 }
 
 #app,
@@ -162,6 +227,25 @@ a {
 ::-webkit-scrollbar-thumb:hover {
 	background: var(--xc-border-strong);
 	background-clip: content-box;
+}
+
+/*
+ * Shiki multi-theme resolution.
+ *
+ * highlight.server.ts emits each token with --shiki-dark and --shiki-light
+ * CSS variables in inline style; defaultColor: false means neither is set
+ * as `color`. These rules pick the active variant from the data-theme.
+ */
+.shiki,
+.shiki span {
+	color: var(--shiki-dark);
+	background-color: var(--shiki-dark-bg);
+}
+
+[data-theme='xcode-light'] .shiki,
+[data-theme='xcode-light'] .shiki span {
+	color: var(--shiki-light);
+	background-color: var(--shiki-light-bg);
 }
 
 /* Reduced motion — gate animations on this */

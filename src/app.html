@@ -4,11 +4,34 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
+		<!-- Pre-paint theme: read localStorage then prefers-color-scheme to set
+		     data-theme before any CSS evaluates. Eliminates the dark→light flash
+		     for users who prefer light. -->
+		<script>
+			(function () {
+				try {
+					var v = localStorage.getItem('mostafa.theme');
+					var t =
+						v === 'light' || v === 'dark'
+							? v
+							: window.matchMedia &&
+								window.matchMedia('(prefers-color-scheme: light)').matches
+								? 'light'
+								: 'dark';
+					document.documentElement.setAttribute(
+						'data-theme',
+						t === 'light' ? 'xcode-light' : 'xcode-dark'
+					);
+				} catch (e) {}
+			})();
+		</script>
+
 		<link rel="icon" href="%sveltekit.assets%/favicon.svg" type="image/svg+xml" />
 		<link rel="mask-icon" href="%sveltekit.assets%/favicon.svg" color="#5896d6" />
 
-		<meta name="color-scheme" content="dark" />
-		<meta name="theme-color" content="#1F1F24" />
+		<meta name="color-scheme" content="dark light" />
+		<meta name="theme-color" content="#1F1F24" media="(prefers-color-scheme: dark)" />
+		<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)" />
 
 		<meta property="og:site_name" content="Mostafa.xcodeproj" />
 		<meta property="og:type" content="website" />

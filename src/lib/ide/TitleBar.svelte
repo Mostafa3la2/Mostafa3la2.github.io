@@ -4,6 +4,7 @@
 	import TrafficLights from './TrafficLights.svelte';
 	import SchemePicker from './SchemePicker.svelte';
 	import RunButton from './RunButton.svelte';
+	import ThemeToggle from './ThemeToggle.svelte';
 
 	let activeFile = $derived(findFileByPath($page.url.pathname || '/'));
 </script>
@@ -32,6 +33,7 @@
 	</div>
 
 	<div class="right">
+		<ThemeToggle />
 		<button class="iconbtn" type="button" aria-label="Toggle inspector">
 			<svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
 				<rect x="0.5" y="0.5" width="13" height="13" rx="2" fill="none" stroke="currentColor" />
