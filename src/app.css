@@ -235,17 +235,25 @@ a {
  * highlight.server.ts emits each token with --shiki-dark and --shiki-light
  * CSS variables in inline style; defaultColor: false means neither is set
  * as `color`. These rules pick the active variant from the data-theme.
+ *
+ * structure: 'inline' produces no .shiki wrapper — we target the spans via
+ * their actual ancestor (.code-body in CodeBody.svelte). The .line wrapper
+ * spans don't carry the vars, so var() falls back to inherited color from
+ * .code (which sets var(--syn-plain)). Inner Shiki tokens have the vars
+ * set inline and resolve to their per-token color.
  */
-.shiki,
-.shiki span {
+.code-body span {
 	color: var(--shiki-dark);
-	background-color: var(--shiki-dark-bg);
+	font-style: var(--shiki-dark-font-style);
+	font-weight: var(--shiki-dark-font-weight);
+	text-decoration: var(--shiki-dark-text-decoration);
 }
 
-[data-theme='xcode-light'] .shiki,
-[data-theme='xcode-light'] .shiki span {
+[data-theme='xcode-light'] .code-body span {
 	color: var(--shiki-light);
-	background-color: var(--shiki-light-bg);
+	font-style: var(--shiki-light-font-style);
+	font-weight: var(--shiki-light-font-weight);
+	text-decoration: var(--shiki-light-text-decoration);
 }
 
 /* Reduced motion — gate animations on this */
