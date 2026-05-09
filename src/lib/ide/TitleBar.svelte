@@ -100,4 +100,34 @@
 		background: var(--xc-border);
 		color: var(--xc-text);
 	}
+
+	@media (max-width: 1023px) {
+		.title {
+			display: none;
+		}
+		.titlebar {
+			grid-template-columns: auto auto 1fr auto;
+		}
+	}
+
+	@media (max-width: 899px) {
+		.left,
+		.right {
+			display: none;
+		}
+		.titlebar {
+			grid-template-columns: auto 1fr auto;
+			padding-inline-end: 8px;
+		}
+		.center {
+			justify-self: center;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.titlebar {
+			padding-inline: 4px 4px;
+			gap: 6px;
+		}
+	}
 </style>

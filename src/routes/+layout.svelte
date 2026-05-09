@@ -8,7 +8,13 @@
 	import ConsolePane from '$lib/ide/ConsolePane.svelte';
 	import StatusBar from '$lib/ide/StatusBar.svelte';
 	import XcodeAlert from '$lib/ide/XcodeAlert.svelte';
+	import MobileBottomBar from '$lib/ide/MobileBottomBar.svelte';
+	import MobileFilesSheet from '$lib/ide/MobileFilesSheet.svelte';
+	import MobileSimulatorSheet from '$lib/ide/MobileSimulatorSheet.svelte';
+	import MobileInspectorSheet from '$lib/ide/MobileInspectorSheet.svelte';
 	import { simulator, simState } from '$lib/stores/simulator';
+	import { closeSheet } from '$lib/stores/mobileSheet';
+	import { afterNavigate } from '$app/navigation';
 
 	let { children } = $props();
 
@@ -21,19 +27,37 @@
 			onclick: () => simulator.dismissFailure()
 		}
 	];
+
+	// Close any open mobile sheet on file navigation so the user can read.
+	afterNavigate(() => {
+		closeSheet();
+	});
 </script>
 
 <div class="ide" data-xcode-version="26">
 	<TitleBar />
-	<FileNavigator />
+	<div class="nav-host">
+		<FileNavigator />
+	</div>
 	<main class="editor-slot">
 		{@render children()}
 	</main>
-	<InspectorPane />
-	<SimulatorPane />
-	<ConsolePane />
+	<div class="inspector-host">
+		<InspectorPane />
+	</div>
+	<div class="sim-host">
+		<SimulatorPane />
+	</div>
+	<div class="console-host">
+		<ConsolePane />
+	</div>
 	<StatusBar />
+	<MobileBottomBar />
 </div>
+
+<MobileFilesSheet />
+<MobileSimulatorSheet />
+<MobileInspectorSheet />
 
 <XcodeAlert
 	open={failureOpen}
@@ -66,10 +90,11 @@
 		overflow: hidden;
 	}
 
-	.editor-slot {
-		grid-area: editor;
-		display: contents;
-	}
+	.nav-host { grid-area: nav; min-width: 0; min-height: 0; display: contents; }
+	.editor-slot { grid-area: editor; display: contents; }
+	.inspector-host { grid-area: inspector; min-width: 0; display: contents; }
+	.sim-host { grid-area: simulator; min-width: 0; display: contents; }
+	.console-host { grid-area: console; min-width: 0; display: contents; }
 
 	@media (max-width: 1023px) {
 		.ide {
@@ -85,27 +110,37 @@
 				'nav       console'
 				'statusbar statusbar';
 		}
-		.ide :global(.inspector),
-		.ide :global(.sim) {
+		.inspector-host,
+		.sim-host {
 			display: none;
 		}
 	}
 
+	/* Phone-Xcode UI: editor full bleed, MobileBottomBar replaces all panes. */
 	@media (max-width: 899px) {
 		.ide {
 			grid-template-columns: 1fr;
 			grid-template-rows:
 				var(--xc-titlebar-height)
 				1fr
+				auto
 				var(--xc-statusbar-height);
 			grid-template-areas:
 				'titlebar'
 				'editor'
+				'mobilebar'
 				'statusbar';
 		}
-		.ide :global(.nav),
-		.ide :global(.console) {
+		.nav-host,
+		.console-host {
 			display: none;
+		}
+	}
+
+	/* Above 900px: hide the mobile bar. */
+	@media (min-width: 900px) {
+		:global(.mbar) {
+			display: none !important;
 		}
 	}
 </style>

@@ -175,4 +175,15 @@
 	.menu-item:hover .check {
 		color: white;
 	}
+
+	/* Tighten on narrow widths — hide the device dropdown, just show scheme. */
+	@media (max-width: 480px) {
+		.picker > .dropdown:nth-of-type(2),
+		.picker > .sep {
+			display: none;
+		}
+		.picker {
+			padding-inline: 8px;
+		}
+	}
 </style>
