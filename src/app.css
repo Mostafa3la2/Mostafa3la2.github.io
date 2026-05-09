@@ -3,9 +3,6 @@
  *
  * Xcode 26 dark palette (Default Dark theme). Values are sampled approximations;
  * verify against a fresh Xcode 26 install before locking pixel-fidelity tests.
- *
- * Logical properties used throughout (margin-inline-start vs margin-left) so
- * the EN ⇄ AR RTL flip works without per-side rewrites.
  */
 
 :root {
@@ -82,8 +79,6 @@
 	--font-mono: 'JetBrains Mono', 'SF Mono', 'Menlo', ui-monospace, monospace;
 	--font-ui:
 		-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', system-ui, sans-serif;
-	--font-arabic:
-		'IBM Plex Sans Arabic', 'Geeza Pro', 'Noto Sans Arabic', system-ui, sans-serif;
 
 	--fs-mono: 13px;
 	--fs-mono-tight: 12px;
@@ -119,10 +114,6 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	text-rendering: optimizeLegibility;
-}
-
-[dir='rtl'] body {
-	font-family: var(--font-arabic);
 }
 
 #app,
